@@ -1,4 +1,6 @@
-.roster {
+import { css } from "linaria";
+
+export const roster = css`
   position: fixed;
   top: 0;
   right: 0;
@@ -9,9 +11,11 @@
   color: var(--text-primary);
   padding: 2rem;
   box-shadow: var(--shadow-heavy);
-}
+`;
 
-.roster-header {
+export const header = css`
   font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-}
+  margin-bottom: 2rem;
+`;
+
+export default { roster, header };
