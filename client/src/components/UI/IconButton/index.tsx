@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import classNames from "classnames";
 
-import "./index.css";
+import styles from "./styles";
 
 type Variant = "primary" | "secondary";
 
@@ -19,11 +19,11 @@ const Button: React.FC<Props> = ({
   children,
   ...rest
 }) => {
-  const classes = classNames("button", className);
+  const classes = classNames(styles.button, className);
 
   return (
     <button className={classes} {...rest} aria-label={label}>
-      <span className="icon">{Icon}</span>
+      <span className={styles.icon}>{Icon}</span>
     </button>
   );
 };

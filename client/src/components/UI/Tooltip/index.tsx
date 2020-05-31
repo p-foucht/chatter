@@ -1,8 +1,9 @@
 import React from "react";
 import RcTooltip from "rc-tooltip";
 
+import styles from "./styles";
 import "rc-tooltip/assets/bootstrap.css";
-import "./index.css";
+import "./overrides.css";
 
 type Position =
   | "left"
@@ -27,7 +28,7 @@ const Tooltip: React.FC<Props> = ({ position = "top", tooltip, children }) => {
       trigger={["hover", "focus"]}
       placement={position}
       overlay={<div>{tooltip}</div>}
-      overlayClassName="tooltip"
+      overlayClassName={styles.tooltip}
     >
       {children}
     </RcTooltip>
