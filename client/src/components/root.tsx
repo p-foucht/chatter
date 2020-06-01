@@ -6,7 +6,8 @@ import { MeetingStatusProvider } from "../providers/MeetingStatusProvider";
 import { RosterProvider } from "../providers/RosterProvider";
 import { DevicesProvider } from "../providers/DevicesProvider";
 import Roster from "./Roster";
-import MuteButton from "./Controls/MuteButton";
+import LocalVideo from "./LocalVideo/LocalVideo";
+import ControlBar from "./Controls/ControlBar";
 
 const Root = () => (
   <RecoilRoot>
@@ -14,8 +15,17 @@ const Root = () => (
       <MeetingStatusProvider>
         <DevicesProvider>
           <RosterProvider>
+            <div
+              style={{
+                maxWidth: "calc(100% - 25rem)",
+                minWidth: "70%",
+                width: "100%",
+              }}
+            >
+              <LocalVideo />
+              <ControlBar />
+            </div>
             <Roster />
-            <MuteButton />
           </RosterProvider>
         </DevicesProvider>
       </MeetingStatusProvider>

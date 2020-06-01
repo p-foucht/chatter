@@ -1,10 +1,8 @@
 .button {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   height: 3.2rem;
   width: 3.2rem;
+  margin: 0 0.5rem;
   font-size: 1.5rem;
   border-radius: 100%;
   border: none;

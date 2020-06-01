@@ -29,7 +29,7 @@ const Tooltip: React.FC<Props> = ({ position = "top", tooltip, children }) => {
       overlay={<div>{tooltip}</div>}
       overlayClassName="tooltip"
     >
-      {children}
+      <div>{children}</div>
     </RcTooltip>
   );
 };
