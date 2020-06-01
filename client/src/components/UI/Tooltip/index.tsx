@@ -30,7 +30,7 @@ const Tooltip: React.FC<Props> = ({ position = "top", tooltip, children }) => {
       overlay={<div>{tooltip}</div>}
       overlayClassName={styles.tooltip}
     >
-      {children}
+      <div>{children}</div>
     </RcTooltip>
   );
 };

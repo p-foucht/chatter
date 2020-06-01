@@ -239,6 +239,7 @@ class ChimeSdkWrapper {
 
   chooseVideoInputDevice = async (device: any) => {
     try {
+      console.log(this.deviceController)
       await this.deviceController?.chooseVideoInputDevice(device.value);
       this.currentVideoInputDevice = device;
     } catch (error) {

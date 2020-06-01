@@ -4,6 +4,7 @@ import styles from "./styles";
 
 import { useRoster } from "../../providers/RosterProvider";
 import { AttendeeType } from "../../types/rosterType";
+import RosterItem from "./RosterItem";
 
 const Roster = () => {
   const roster = useRoster();
@@ -14,7 +15,7 @@ const Roster = () => {
       <h2 className={styles.header}>Viewers</h2>
       <ul>
         {attendees.map((attendee: AttendeeType) => (
-          <li key={attendee.id}>{attendee.name}</li>
+          <RosterItem name={attendee.name} id={attendee.id} />
         ))}
       </ul>
     </section>

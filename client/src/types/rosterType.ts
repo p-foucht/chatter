@@ -4,6 +4,6 @@ export interface RosterType {
 
 export interface AttendeeType {
   id: string;
+  name: string;
   externalUserId?: string;
-  name?: string;
 }
