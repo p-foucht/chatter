@@ -1,10 +1,10 @@
-import { css } from "linaria";
+import {
+  css
+} from "linaria";
 
-export const button = css`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+export const button = css `
+  position: relative;
+  margin: 0 0.25rem;
   height: 3.2rem;
   width: 3.2rem;
   font-size: 1.5rem;
@@ -44,9 +44,12 @@ export const button = css`
   }
 `;
 
-export const icon = css`
+export const icon = css `
   position: relative;
   top: 0.1rem;
 `;
 
-export default { button, icon };
+export default {
+  button,
+  icon
+};
