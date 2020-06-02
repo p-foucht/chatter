@@ -1,23 +1,19 @@
-import {
-    css
-} from "linaria";
+import { css } from 'linaria';
 
-export const controlBar = css `
-  position: fixed;
-  left: 0;
-  bottom: 0;
+export const controlBar = css`
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
-  min-height: 50px;
-  min-width: 70%;
-  max-width: calc(100% - 25em);
-  width: 100%;
+  padding: 1rem 1.25rem;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  padding: 1rem;
   box-shadow: var(--shadow-heavy);
+  border-radius: var(--radius-medium);
 `;
 
 export default {
-    controlBar,
+  controlBar,
 };

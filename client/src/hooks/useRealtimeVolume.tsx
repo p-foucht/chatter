@@ -1,7 +1,7 @@
-import { useEffect, useState, useCallback } from "react";
-import { useAudioVideo } from "../providers/MeetingStatusProvider";
+import { useEffect, useState } from 'react';
+import { useAudioVideo } from '../providers/MeetingStatusProvider';
 
-const useRealtimeVolume = (id: any) => {
+const useRealtimeVolume = (id: string) => {
   const av = useAudioVideo();
   const [volume, setVolume] = useState(0);
 
@@ -21,10 +21,10 @@ const useRealtimeVolume = (id: any) => {
       }
     };
 
-    av?.realtimeSubscribeToVolumeIndicator(id, cb);
+    av.realtimeSubscribeToVolumeIndicator(id, cb);
 
-    return () => av?.realtimeUnsubscribeFromVolumeIndicator(id);
-  }, [av]);
+    return () => av.realtimeUnsubscribeFromVolumeIndicator(id);
+  }, [av, id]);
 
   return { volume };
 };

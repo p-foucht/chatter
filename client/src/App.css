@@ -1,3 +1,7 @@
+#root {
+  height: 100%;
+}
+
 :root {
   /* Background */
   --bg-primary: #131315;
@@ -25,7 +29,8 @@
   --color-grey-100: #1d2125;
 
   /* Border radius */
-  --radius-primary: 0.2rem;
+  --radius-light: 0.2rem;
+  --radius-medium: 0.5rem;
 
   /* Box shadows */
   --shadow-light: 0 0.1rem 0.2rem 0.1rem rgba(0, 0, 0, 0.08);

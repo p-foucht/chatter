@@ -1,19 +1,23 @@
-import React from "react";
-import { MdVideocam, MdVideocamOff } from "react-icons/md";
+import React from 'react';
+import { MdVideocam, MdVideocamOff } from 'react-icons/md';
 
-import useLocalTile from "../../hooks/useLocalTile";
-import IconButton from "../UI/IconButton";
-import Tooltip from "../UI/Tooltip";
+import IconButton from '../UI/IconButton';
+import Tooltip from '../UI/Tooltip';
+import {
+  useLocalVideoState,
+  useToggleLocalVideo,
+} from '../../providers/LocalVideoProvider';
 
 const VideoButton = () => {
-  const { broadcasting, toggleVideo } = useLocalTile();
-  const label = broadcasting ? "Hide" : "Show";
+  const toggleVideo = useToggleLocalVideo();
+  const { isActive } = useLocalVideoState();
+  const label = isActive ? 'Stop my video' : 'Start my video';
 
   return (
     <Tooltip tooltip={label}>
       <IconButton
-        className="mute-button"
-        icon={broadcasting ? <MdVideocam /> : <MdVideocamOff />}
+        className='mute-button'
+        icon={isActive ? <MdVideocam /> : <MdVideocamOff />}
         onClick={toggleVideo}
         label={label}
       />
