@@ -1,69 +1,51 @@
-import React, {
-  useMemo,
-  useEffect,
-  useState,
-  createContext,
-  useContext,
-} from "react";
+import React, { useState, createContext, useContext, useCallback } from 'react';
 
-import { useAudioVideo } from "./MeetingStatusProvider";
+import { useAudioVideo } from './MeetingStatusProvider';
 
-interface TileApi {
-  startLocalVideo?: () => void;
-  stopLocalVideo?: () => void;
-}
-
-interface LocalTileSTate {
+interface LocalVideoState {
   isActive: boolean;
-  tileId?: number;
+  tileId?: number | null;
 }
 
-const ApiContext = createContext<TileApi>({});
-const StateContext = createContext<LocalTileSTate>({ isActive: false });
+type ToggleVideo = () => void;
 
-const LocalVideoProvider = () => {
+const ApiContext = createContext<ToggleVideo>(() => {});
+const StateContext = createContext<LocalVideoState>({ isActive: false });
+
+const LocalVideoProvider: React.FC = ({ children }) => {
   const av = useAudioVideo();
-  const [state, setState] = useState<any>({
-    active: false,
+  const [state, setState] = useState<LocalVideoState>({
+    isActive: false,
     tileId: null,
   });
 
-  const api = useMemo(
-    () => ({
-      startLocalVideo: () => {
-        try {
-          av?.startLocalVideoTile();
-          setState((current) => ({ ...current, active: true }));
-        } catch (e) {
-          console.log(`Something went wrong - ${e.message}`);
-          av?.startLocalVideoTile();
-        }
-      },
-      stopLocalVideo: () => {
-        av?.stopLocalVideoTile();
-        setState((current) => ({ ...current, active: false }));
-      },
-    }),
-    []
-  );
+  const api = useCallback(() => {
+    if (state.isActive) {
+      av?.stopLocalVideoTile();
+      setState((current) => ({ ...current, isActive: false }));
+    } else {
+      av?.startLocalVideoTile();
+      setState((current) => ({ ...current, isActive: true }));
+    }
+  }, [av, state.isActive]);
 
   return (
     <ApiContext.Provider value={api}>
-      <StateContext.Provider value={state}></StateContext.Provider>
+      <StateContext.Provider value={state}>{children}</StateContext.Provider>
     </ApiContext.Provider>
   );
 };
 
-const useLocalTileApi = () => {
+const useToggleLocalVideo = (): ToggleVideo => {
   const api = useContext(ApiContext);
 
   return api;
 };
 
-const useLocalTileState = () => {
+const useLocalVideoState = () => {
   const state = useContext(StateContext);
 
   return state;
 };
 
-export { LocalVideoProvider, useLocalTileApi, useLocalTileState };
+export { LocalVideoProvider, useToggleLocalVideo, useLocalVideoState };

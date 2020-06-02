@@ -1,16 +1,11 @@
-import { VideoTileState } from "amazon-chime-sdk-js";
-import classNames from "classnames/bind";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from 'react';
+import { VideoTileState } from 'amazon-chime-sdk-js';
 
-// import getChimeContext from "../context/getChimeContext";
-// import styles from "./LocalVideo.css";
-// import { ChimeSdkWrapper } from "../providers/ChimeProvider";
-import { useAudioVideo } from "../../providers/MeetingStatusProvider";
+import { useAudioVideo } from '../../providers/MeetingStatusProvider';
 
-// const cx = classNames.bind(styles);
+import styles from './styles';
 
 export default function LocalVideo() {
-  const [enabled, setEnabled] = useState(false);
   const av = useAudioVideo();
   const videoElement = useRef(null);
 
@@ -18,7 +13,8 @@ export default function LocalVideo() {
     if (!av) {
       return;
     }
-    av?.addObserver({
+
+    const observer = {
       videoTileDidUpdate: (tileState: VideoTileState): void => {
         if (
           !tileState.boundAttendeeId ||
@@ -28,20 +24,25 @@ export default function LocalVideo() {
         ) {
           return;
         }
-        console.log("videoTileDidUpdate");
-        console.log(tileState);
-        av?.bindVideoElement(
+        av.bindVideoElement(
           tileState.tileId,
           (videoElement.current as unknown) as HTMLVideoElement
         );
-        setEnabled(tileState.active);
       },
-      videoTileWasRemoved: (tileId) => {
-        console.log("Video Tile was removed");
-        console.log(tileId);
-      },
-    });
+    };
+
+    av.addObserver(observer);
+
+    return () => av.removeObserver(observer);
   }, [av]);
 
-  return <video muted ref={videoElement} height="100%" width="100%" />;
+  return (
+    <video
+      className={styles.video}
+      muted
+      ref={videoElement}
+      height='100%'
+      width='100%'
+    />
+  );
 }

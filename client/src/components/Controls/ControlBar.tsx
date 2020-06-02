@@ -1,7 +1,9 @@
-import React from "react";
-import styles from "./styles";
-import MuteButton from "./MuteButton";
-import VideoButton from "./VideoButton";
+import React from 'react';
+
+import MuteButton from './MuteButton';
+import VideoButton from './VideoButton';
+
+import styles from './styles';
 
 const ControlBar = () => {
   return (
