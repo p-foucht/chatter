@@ -1,15 +1,21 @@
-import React from 'react';
+import React from "react";
 
-import MuteButton from './MuteButton';
-import VideoButton from './VideoButton';
+import MuteButton from "./MuteButton";
+import VideoButton from "./VideoButton";
+import ButtonGroup from "../UI/ButtonGroup";
+import ContentShareButton from "./ContentShareButton";
 
-import styles from './styles';
+import styles from "./styles";
 
 const ControlBar = () => {
   return (
     <div className={styles.controlBar}>
-      <MuteButton />
-      <VideoButton />
+      <ButtonGroup>
+        <MuteButton />
+        <MuteButton />
+        <VideoButton />
+        <ContentShareButton />
+      </ButtonGroup>
     </div>
   );
 };
