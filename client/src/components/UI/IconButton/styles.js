@@ -1,6 +1,6 @@
-import { css } from 'linaria';
+import { css } from "linaria";
 
-export const button = css`
+const button = css`
   position: relative;
   margin: 0 0.25rem;
   height: 3rem;
@@ -12,7 +12,7 @@ export const button = css`
   z-index: 1;
 
   &::before {
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     top: 0;
@@ -42,7 +42,7 @@ export const button = css`
   }
 `;
 
-export const icon = css`
+const icon = css`
   position: relative;
   top: 0.2rem;
 `;
