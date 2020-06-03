@@ -3,6 +3,7 @@ import React from "react";
 import MuteButton from "./MuteButton";
 import VideoButton from "./VideoButton";
 import ButtonGroup from "../UI/ButtonGroup";
+import ContentShareButton from "./ContentShareButton";
 
 import styles from "./styles";
 
@@ -12,8 +13,8 @@ const ControlBar = () => {
       <ButtonGroup>
         <MuteButton />
         <MuteButton />
-        <MuteButton />
         <VideoButton />
+        <ContentShareButton />
       </ButtonGroup>
     </div>
   );
