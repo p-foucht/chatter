@@ -2,13 +2,13 @@ import React from "react";
 import classNames from "classnames";
 import { MdChat, MdGroup } from "react-icons/md";
 
-import View from "./index";
+import { View } from "./index";
 
 import styles from "./styles";
 
 type Props = {
   view: string;
-  setView: (View) => void;
+  setView: (val: View) => void;
 };
 
 const Nav = (props: Props) => (
