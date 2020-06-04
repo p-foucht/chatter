@@ -31,7 +31,7 @@ const ContentShare = () => {
 
   return (
     <div className={styles.wrapper}>
-      <video ref={videoEl} />;
+      <video ref={videoEl} />
     </div>
   );
 };
