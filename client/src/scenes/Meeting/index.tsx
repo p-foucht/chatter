@@ -1,6 +1,6 @@
 import React from "react";
 
-import Roster from "../../components/Roster";
+import Sidebar from "../../components/Sidebar";
 import MeetingCanvas from "../../components/MeetingCanvas";
 import { MeetingStatusProvider } from "../../providers/MeetingStatusProvider";
 import { RosterProvider } from "../../providers/RosterProvider";
@@ -23,7 +23,7 @@ const Meeting = () => (
                   <MeetingCanvas />
                 </div>
                 <div className={styles.roster}>
-                  <Roster />
+                  <Sidebar />
                 </div>
               </div>
             </MessagingProvider>

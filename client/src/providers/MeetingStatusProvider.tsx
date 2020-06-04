@@ -70,7 +70,6 @@ const useMeetingStatus = () => {
 
 const useAudioVideo = (): AudioVideoFacade | null => {
   const av = useContext(AVContext);
-
   return av;
 };
 
