@@ -11,7 +11,7 @@ const LeaveMeetingButton = () => {
 
   // need to conditionally route if leave room is successfull
   const leaveMeeting = async () => {
-    await chime.leaveRoom(true);
+    await chime.leaveRoom(false);
     history.push("/");
   };
 

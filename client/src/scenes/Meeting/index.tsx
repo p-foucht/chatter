@@ -22,7 +22,7 @@ const Meeting = () => (
                 <div className={styles.meeting}>
                   <MeetingCanvas />
                 </div>
-                <div className={styles.roster}>
+                <div className={styles.sidebar}>
                   <Sidebar />
                 </div>
               </div>
