@@ -1,9 +1,15 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About
 
-To run the client, you will need to start the demo node server provided by the amazon-chime-sdk-js.
+A realtime app video conferencing and chat app for tutors and students.
 
-[See this page for details.](https://github.com/aws/amazon-chime-sdk-js/tree/master/demos/browser).
-Make sure you have your AWS credentials configured, otherwise you won't be able to create meetings.
+## Getting started
+
+To run the client, you will need update your .env.local with your API endpoint. We are using
+serverless infrastructure managed via Serverless, You will need to install the Serverless
+library locally, run the `serverless deploy` command in the serverless directory, and update
+your .env.local `REACT_APP_BASE_API_URL` varaible with the deployed URL.
+
+[See this page for details.](https://github.com/aws/amazon-chime-sdk-js/tree/master/demos/serverless).
 
 ## Available Scripts
 

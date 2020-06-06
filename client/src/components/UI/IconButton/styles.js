@@ -1,11 +1,13 @@
-import { css } from "linaria";
+import {
+  css
+} from "linaria";
 
-const button = css`
+const button = css `
   position: relative;
   margin: 0 0.25rem;
-  height: 3rem;
-  width: 3rem;
-  font-size: 1.5rem;
+  height: 4rem;
+  width: 4rem;
+  font-size: 2rem;
   border-radius: 100%;
   border: none;
   background: none;
@@ -42,7 +44,7 @@ const button = css`
   }
 `;
 
-const icon = css`
+const icon = css `
   position: relative;
   top: 0.2rem;
 `;

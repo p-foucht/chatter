@@ -1,7 +1,7 @@
 .rc-tooltip-inner {
   min-height: unset;
   min-width: 2.5rem;
-  padding: 0.1rem 0.3rem;
+  padding: 0.2rem 0.6rem;
   text-align: center;
   border-radius: 0.3rem;
   background: var(--bg-secondary);
@@ -9,9 +9,16 @@
 }
 
 .rc-tooltip-placement-top {
-  padding: 0 0 0.2rem 0;
+  padding: 0;
+}
+
+.rc-tooltip-content {
+  position: relative;
+  top: -0.5rem;
 }
 
 .rc-tooltip-arrow {
-  display: none;
+  top: 96%;
+  bottom: unset !important;
+  border-top-color: var(--bg-secondary) !important;
 }

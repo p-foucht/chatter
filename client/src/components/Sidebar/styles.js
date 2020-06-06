@@ -35,9 +35,8 @@ const active = css `
 `
 
 const icon = css `
-    height: 1.5rem;
-    width: 1.5rem;
-    transition: 0.1s;
+    height: 2.5rem;
+    width: 2.5rem;
     color: currentColor;
 `
 

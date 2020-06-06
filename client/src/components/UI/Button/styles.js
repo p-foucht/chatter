@@ -1,10 +1,14 @@
-import { css } from 'linaria';
+import {
+  css
+} from 'linaria';
 
-export const button = css`
+export const button = css `
   display: block;
   min-width: 5rem;
-  padding: 0.5rem 0.4rem;
+  padding: 0.75rem 0.65rem;
   border-radius: var(--radius-light);
 `;
 
-export default { button };
+export default {
+  button
+};
