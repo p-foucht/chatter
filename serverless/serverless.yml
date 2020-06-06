@@ -10,6 +10,7 @@ provider:
   stage: dev
   environment:
     MEETINGS_TABLE: Meetings--${self:service}-${self:provider.stage}
+    USERS_TABLE: Users--${self:service}-${self:provider.stage}
 
 functions:
   join:
@@ -26,6 +27,14 @@ functions:
   #         path: meeting/leave
   #         method: post
   #         cors: true
+
+  signup:
+    handler: handlers/users/signup.handler
+    events:
+      - http:
+          path: auth/signup
+          method: post
+          cors: true
 
 # you can add CloudFormation resource templates here
 resources:
@@ -53,6 +62,17 @@ resources:
         TimeToLiveSpecification:
           AttributeName: 'TTL'
           Enabled: true
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.USERS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: 'ID'
+            AttributeType: 'S'
+        BillingMode: PAY_PER_REQUEST
+        KeySchema:
+          - AttributeName: 'ID'
+            KeyType: HASH
 
 Outputs:
   MeetingsTableArn:
