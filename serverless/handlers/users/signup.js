@@ -1,15 +1,8 @@
 const AWS = require('aws-sdk');
+const { v4: uuid } = require('uuid');
 
 const ddb = new AWS.DynamoDB.DocumentClient({ region: 'us-east-1' });
 const USERS_TABLE = process.env.USERS_TABLE;
-
-function uuid() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = (Math.random() * 16) | 0,
-      v = c == 'x' ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
 
 module.exports.handler = async (event, context) => {
   console.log('event: ', JSON.stringify(event));
