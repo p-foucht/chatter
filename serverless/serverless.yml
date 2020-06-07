@@ -36,6 +36,14 @@ functions:
           method: post
           cors: true
 
+  signin:
+    handler: handlers/users/signin.handler
+    events:
+      - http:
+          path: auth/signin
+          method: post
+          cors: true
+
 # you can add CloudFormation resource templates here
 resources:
   Resources:
@@ -44,40 +52,40 @@ resources:
       Properties:
         TableName: ${self:provider.environment.MEETINGS_TABLE}
         AttributeDefinitions:
-          - AttributeName: 'Title'
-            AttributeType: 'S'
-          - AttributeName: 'Passcode'
-            AttributeType: 'S'
+          - AttributeName: "Title"
+            AttributeType: "S"
+          - AttributeName: "Passcode"
+            AttributeType: "S"
         BillingMode: PAY_PER_REQUEST
         KeySchema:
-          - AttributeName: 'Title'
+          - AttributeName: "Title"
             KeyType: HASH
         GlobalSecondaryIndexes:
-          - IndexName: 'Passcode'
+          - IndexName: "Passcode"
             KeySchema:
-              - AttributeName: 'Passcode'
+              - AttributeName: "Passcode"
                 KeyType: HASH
             Projection:
               ProjectionType: ALL
         TimeToLiveSpecification:
-          AttributeName: 'TTL'
+          AttributeName: "TTL"
           Enabled: true
     usersTable:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ${self:provider.environment.USERS_TABLE}
         AttributeDefinitions:
-          - AttributeName: 'ID'
-            AttributeType: 'S'
+          - AttributeName: "ID"
+            AttributeType: "S"
         BillingMode: PAY_PER_REQUEST
         KeySchema:
-          - AttributeName: 'ID'
+          - AttributeName: "ID"
             KeyType: HASH
 
 Outputs:
   MeetingsTableArn:
     Description: The ARN for the Meetings's Table
     Value:
-      'Fn::GetAtt': [meetingsTable, Arn]
+      "Fn::GetAtt": [meetingsTable, Arn]
     Export:
       Name: ${self:provider.environment.MEETINGS_TABLE}

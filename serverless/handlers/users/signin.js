@@ -1,52 +1,52 @@
 const AWS = require("aws-sdk");
-const {
-  v4: uuid
-} = require("uuid");
 const bcrypt = require("bcryptjs");
 
 const ddb = new AWS.DynamoDB.DocumentClient({
-  region: "us-east-1"
+  region: "us-east-1",
 });
 const USERS_TABLE = process.env.USERS_TABLE;
 
-const salt = bcrypt.genSaltSync(10);
-
 module.exports.handler = async (event, context) => {
-  console.log("event: ", JSON.stringify(event));
-
   const body = JSON.parse(event.body);
   const {
     username,
     password
   } = body;
 
-
-  const hash = bcrypt.hashSync(password, salt);
-
-  console.log(`Username: ${username}, password: ${hash}`);
+  console.log(`Username: ${username}, password: ${password}`);
 
   const params = {
     TableName: USERS_TABLE,
-    Item: {
-      ID: uuid(),
-      username,
-      password: hash,
+    FilterExpression: "username = :this_username",
+    ExpressionAttributeValues: {
+      ":this_username": username,
     },
   };
 
-  console.log("Writing params to DB: ", JSON.stringify(params));
-
+  let user;
   try {
-    await ddb.put(params).promise();
-    console.log("User saved to DB");
+    let users = await ddb.scan(params).promise();
+    user = users.Items[0];
+    if (!bcrypt.compareSync(password, user.password)) {
+      throw new Error('Passwords do not match');
+    }
   } catch (e) {
-    console.log("Error saving user to database: ", e.message);
-    return response(500, "application/json", {
+    console.log("Error fetching user: ", e.message);
+
+    return response(401, "application/json", {
       error: e.message
     });
   }
 
-  return response(200, "application/json", JSON.stringify({}));
+  console.log('After try catch');
+
+  return response(
+    200,
+    "application/json",
+    JSON.stringify({
+      user,
+    })
+  );
 };
 
 function response(statusCode, contentType, body) {
