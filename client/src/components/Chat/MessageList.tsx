@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import Message from "./Message";
-import { useChatMessages } from "../../providers/MessagingProvider";
+import Message from './Message';
+import { useChatMessages } from '../../providers/MessagingProvider';
 
 // The author and timestamp are hardcoded in. Eventually need to modify
 // useChatMessages to give an array of objects with text, author, and timestamp.
