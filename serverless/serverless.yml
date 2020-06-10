@@ -11,6 +11,8 @@ provider:
   environment:
     MEETINGS_TABLE: Meetings--${self:service}-${self:provider.stage}
     USERS_TABLE: Users--${self:service}-${self:provider.stage}
+    CONNECTIONS_TABLE: Connections--${self:service}-${self:provider.stage}
+  websocketsApiRouteSelectionExpression: $request.body.action
 
 functions:
   join:
@@ -44,48 +46,87 @@ functions:
           method: post
           cors: true
 
-# you can add CloudFormation resource templates here
+  # Websocket
+
+  connectionHandler:
+    handler: handlers/websocket/connection.handler
+    events:
+      - websocket:
+          route: $connect
+      - websocket:
+          route: $default
+      - websocket:
+          route: $disconnect
+
+  whiteboardHandler:
+    handler: handlers/websocket/whiteboard.handler
+    events:
+      - websocket:
+          route: whiteboard
+
 resources:
   Resources:
+    # MEETINGS TABLE
+
     meetingsTable:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ${self:provider.environment.MEETINGS_TABLE}
         AttributeDefinitions:
-          - AttributeName: "Title"
-            AttributeType: "S"
-          - AttributeName: "Passcode"
-            AttributeType: "S"
+          - AttributeName: 'Title'
+            AttributeType: 'S'
+          - AttributeName: 'Passcode'
+            AttributeType: 'S'
         BillingMode: PAY_PER_REQUEST
         KeySchema:
-          - AttributeName: "Title"
+          - AttributeName: 'Title'
             KeyType: HASH
         GlobalSecondaryIndexes:
-          - IndexName: "Passcode"
+          - IndexName: 'Passcode'
             KeySchema:
-              - AttributeName: "Passcode"
+              - AttributeName: 'Passcode'
                 KeyType: HASH
             Projection:
               ProjectionType: ALL
         TimeToLiveSpecification:
-          AttributeName: "TTL"
+          AttributeName: 'TTL'
           Enabled: true
+
+    # USERS TABLE
+
     usersTable:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ${self:provider.environment.USERS_TABLE}
         AttributeDefinitions:
-          - AttributeName: "ID"
-            AttributeType: "S"
+          - AttributeName: 'ID'
+            AttributeType: 'S'
         BillingMode: PAY_PER_REQUEST
         KeySchema:
-          - AttributeName: "ID"
+          - AttributeName: 'ID'
             KeyType: HASH
+
+    # CONNECTIONS TABLE
+
+    connectionsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.CONNECTIONS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: 'ConnectionId'
+            AttributeType: 'S'
+        BillingMode: PAY_PER_REQUEST
+        KeySchema:
+          - AttributeName: 'ConnectionId'
+            KeyType: HASH
+        TimeToLiveSpecification:
+          AttributeName: 'TTL'
+          Enabled: true
 
 Outputs:
   MeetingsTableArn:
     Description: The ARN for the Meetings's Table
     Value:
-      "Fn::GetAtt": [meetingsTable, Arn]
+      'Fn::GetAtt': [meetingsTable, Arn]
     Export:
       Name: ${self:provider.environment.MEETINGS_TABLE}
