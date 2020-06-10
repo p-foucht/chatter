@@ -1,18 +1,11 @@
 const AWS = require('aws-sdk');
+const { v4: uuid } = require('uuid');
 
 const ddb = new AWS.DynamoDB.DocumentClient({ region: 'us-east-1' });
 const chime = new AWS.Chime({ region: 'us-east-1' });
 chime.endpoint = new AWS.Endpoint('https://service.chime.aws.amazon.com');
 
 const MEETINGS_TABLE = process.env.MEETINGS_TABLE;
-
-function uuid() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = (Math.random() * 16) | 0,
-      v = c == 'x' ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
 
 module.exports.join = async (event, context) => {
   const query = event.queryStringParameters;

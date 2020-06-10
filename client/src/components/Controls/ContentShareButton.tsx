@@ -1,28 +1,28 @@
-import React from "react";
-import { MdScreenShare, MdStopScreenShare } from "react-icons/md";
-import { AiOutlineLoading } from "react-icons/ai";
+import React from 'react';
+import { MdScreenShare, MdStopScreenShare } from 'react-icons/md';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 import {
   useContentShareState,
   useToggleContentShare,
-} from "../../providers/ContentShareProvider";
-import ControlButton from "./ControlButton";
+} from '../../providers/ContentShareProvider';
+import ControlButton from './ControlButton';
 
 const getLabelAndIcon = (isActive, isLoading) => {
   if (isLoading) {
     return {
-      label: "Loading...",
+      label: 'Loading...',
       icon: <AiOutlineLoading />,
     };
   } else if (isActive) {
     return {
-      label: "Stop sharing my screen",
-      icon: <MdStopScreenShare />,
+      label: 'Stop sharing my screen',
+      icon: <MdScreenShare />,
     };
   } else {
     return {
-      label: "Share my screen",
-      icon: <MdScreenShare />,
+      label: 'Share my screen',
+      icon: <MdStopScreenShare />,
     };
   }
 };

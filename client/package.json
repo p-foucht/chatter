@@ -20,7 +20,10 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "recoil": "0.0.7",
-    "typescript": "~3.7.2"
+    "resize-observer": "^1.0.0",
+    "throttle-debounce": "^2.2.1",
+    "typescript": "~3.7.2",
+    "uuid": "^8.1.0"
   },
   "scripts": {
     "start": "craco start",
