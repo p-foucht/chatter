@@ -9,7 +9,7 @@ import {
   ReconnectingPromisedWebSocket,
 } from 'amazon-chime-sdk-js';
 
-const BASE_URL = `${process.env.REACT_APP_BASE_API_URL}/meeting`;
+import { BASE_API_URL } from '../constants/URLs';
 
 class ChimeSdkWrapper {
   private static WEB_SOCKET_TIMEOUT_MS = 10000;
@@ -117,7 +117,7 @@ class ChimeSdkWrapper {
       throw new Error('Chime.CreateRoom: Missing required params');
     }
 
-    const url = `${BASE_URL}/join?title=${encodeURIComponent(
+    const url = `${BASE_API_URL}/join?title=${encodeURIComponent(
       title
     )}&name=${encodeURIComponent(name)}&region=${encodeURIComponent(region)}`;
 
@@ -203,7 +203,7 @@ class ChimeSdkWrapper {
 
     try {
       if (end && this.title) {
-        // const url = `${BASE_URL}/end?title=${encodeURIComponent(this.title)}`;
+        // const url = `${BASE_API_URL}/end?title=${encodeURIComponent(this.title)}`;
         // await fetch(url, {
         //   method: 'POST',
         // });
