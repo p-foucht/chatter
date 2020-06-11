@@ -25,8 +25,9 @@ class CanvasManager {
 
     this.height = height;
     this.width = width;
-    this.ctx.lineWidth = 3;
-    this.ctx.lineCap = 'round';
+
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
   }
 
   startLine(x: number, y: number, id: string) {
@@ -34,12 +35,12 @@ class CanvasManager {
     this._startLine(x, y);
   }
 
-  sketchLine(x: number, y: number) {
+  drawLine(x: number, y: number) {
     this.plots.push({ x, y });
-    this._sketchLine(x, y);
+    this._drawLine(x, y);
   }
 
-  stopLine(): PlotCollection {
+  stopLine() {
     this._stopLine();
 
     if (this.plots.length) {
@@ -51,18 +52,6 @@ class CanvasManager {
 
     this.currentLineId = null;
     this.plots = [];
-
-    return this.lines[this.lines.length - 1];
-  }
-
-  drawFullLine(collection: PlotCollection) {
-    if (!collection) {
-      return;
-    }
-    const { plots } = collection;
-
-    this.lines.push(collection);
-    this._drawPlots(plots);
   }
 
   clearCanvas() {
@@ -76,9 +65,20 @@ class CanvasManager {
   drawCurrentState() {
     this.clearCanvas();
 
-    this.lines.forEach(({ plots }) => {
-      this._drawPlots(plots);
-    });
+    for (let lineIdx = 0; lineIdx < this.lines.length; lineIdx++) {
+      const { plots } = this.lines[lineIdx];
+
+      // Starting point of line
+      const { x: initialX, y: initialY } = plots[0];
+      this._startLine(initialX, initialY);
+
+      for (let plotIdx = 1; plotIdx < plots.length; plotIdx++) {
+        const { x, y } = plots[plotIdx];
+        this._drawLine(x, y);
+      }
+
+      this._stopLine();
+    }
   }
 
   undo() {
@@ -109,25 +109,12 @@ class CanvasManager {
     this.drawCurrentState();
   }
 
-  _drawPlots(plots: Plot[]) {
-    const { x: initialX, y: initialY } = plots[0];
-    this._startLine(initialX, initialY);
-
-    for (let i = 1; i < plots.length; i++) {
-      const { x, y } = plots[i];
-      this._sketchLine(x, y);
-    }
-
-    this._stopLine();
-  }
-
   _startLine(x: number, y: number) {
     this.ctx?.beginPath();
     this.ctx?.moveTo(x, y);
-    this.ctx?.stroke();
   }
 
-  _sketchLine(x: number, y: number) {
+  _drawLine(x: number, y: number) {
     this.ctx?.lineTo(x, y);
     this.ctx?.stroke();
   }

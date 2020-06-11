@@ -1,7 +1,5 @@
 const AWS = require("aws-sdk");
-const {
-  v4: uuid
-} = require("uuid");
+const { v4: uuid } = require("uuid");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
@@ -16,11 +14,7 @@ module.exports.handler = async (event, context) => {
   console.log("event: ", JSON.stringify(event));
 
   const body = JSON.parse(event.body);
-  const {
-    username,
-    password,
-    email
-  } = body;
+  const { username, password } = body;
 
   const id = uuid();
   const hash = bcrypt.hashSync(password, salt);
@@ -32,7 +26,6 @@ module.exports.handler = async (event, context) => {
     Item: {
       ID: id,
       username,
-      email,
       password: hash,
     },
   };
@@ -49,9 +42,7 @@ module.exports.handler = async (event, context) => {
     });
   }
 
-  const token = jwt.sign({
-    id
-  }, "secret");
+  const token = jwt.sign({ id }, "secret");
 
   return response(
     200,
