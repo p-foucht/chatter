@@ -46,8 +46,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
     try {
       const res = await axios.post(url, req);
-      let { token } = res.data;
-      let { username } = res.data.user;
+      let { token, username } = res.data;
       setToken(token);
       setUsername(username);
       setAuthenticated(token !== null);

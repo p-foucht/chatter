@@ -9,10 +9,7 @@ const USERS_TABLE = process.env.USERS_TABLE;
 
 module.exports.handler = async (event, context) => {
   const body = JSON.parse(event.body);
-  const {
-    username,
-    password
-  } = body;
+  const { username, password } = body;
 
   console.log(`Username: ${username}, password: ${password}`);
 
@@ -41,15 +38,18 @@ module.exports.handler = async (event, context) => {
 
   console.log("After try catch");
 
-  const token = jwt.sign({
-    id: user.ID
-  }, "secret");
+  const token = jwt.sign(
+    {
+      id: user.ID,
+    },
+    "secret"
+  );
 
   return response(
     200,
     "application/json",
     JSON.stringify({
-      user,
+      username: user.username,
       token,
     })
   );
