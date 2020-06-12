@@ -17,7 +17,7 @@ const MessageSetterContext = createContext<any>(() => {});
 
 const MessagingProvider = ({ children }) => {
   const av = useAudioVideo();
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<any[]>([]);
 
   useEffect(() => {
     if (!av) {
@@ -25,7 +25,7 @@ const MessagingProvider = ({ children }) => {
     }
 
     const callback = (data: DataMessage) => {
-      const message = data.text();
+      const message = JSON.parse(data.text());
       setMessages((currentMessages) => [...currentMessages, message]);
     };
 
@@ -50,7 +50,7 @@ const useSendChatMessage = () => {
   const sendChatMessage = useCallback(
     (data: any) => {
       setMessage((messages) => [...messages, data]);
-      av?.realtimeSendDataMessage("chat", data);
+      av?.realtimeSendDataMessage("chat", JSON.stringify(data));
     },
     [av, setMessage]
   );
