@@ -1,12 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import MuteButton from "./MuteButton";
-import VideoButton from "./VideoButton";
-import ButtonGroup from "../UI/ButtonGroup";
-import ContentShareButton from "./ContentShareButton";
-import LeaveMeetingButton from "./LeaveMeetingButton";
+import MuteButton from './MuteButton';
+import VideoButton from './VideoButton';
+import ButtonGroup from '../UI/ButtonGroup';
+import ContentShareButton from './ContentShareButton';
+import LeaveMeetingButton from './LeaveMeetingButton';
+import WhiteboardButton from './WhiteboardButton';
 
-import styles from "./styles";
+import styles from './styles';
 
 const ControlBar = () => {
   return (
@@ -16,6 +17,7 @@ const ControlBar = () => {
         <VideoButton />
         <ContentShareButton />
         <LeaveMeetingButton />
+        <WhiteboardButton />
       </ButtonGroup>
     </div>
   );

@@ -6,6 +6,7 @@ interface Plot {
 interface PlotCollection {
   id: string;
   plots: Plot[];
+  strokeColor: string;
 }
 
 class CanvasManager {
@@ -16,6 +17,7 @@ class CanvasManager {
   private plots: Plot[] = [];
   private height: number | null = null;
   private width: number | null = null;
+  private strokeColor: string = 'black';
   private MAX_UNDO_COUNT = 5;
 
   init(ctx: CanvasRenderingContext2D, height: number, width: number) {
@@ -46,6 +48,7 @@ class CanvasManager {
       this.lines.push({
         id: this.currentLineId!,
         plots: this.plots,
+        strokeColor: this.strokeColor,
       });
     }
 
@@ -59,8 +62,9 @@ class CanvasManager {
     if (!collection) {
       return;
     }
-    const { plots } = collection;
+    const { plots, strokeColor } = collection;
 
+    this.strokeColor = strokeColor;
     this.lines.push(collection);
     this._drawPlots(plots);
   }
@@ -109,6 +113,14 @@ class CanvasManager {
     this.drawCurrentState();
   }
 
+  setStrokeColor(color: string) {
+    this.strokeColor = color;
+
+    if (this.ctx) {
+      this.ctx.strokeStyle = color;
+    }
+  }
+
   _drawPlots(plots: Plot[]) {
     const { x: initialX, y: initialY } = plots[0];
     this._startLine(initialX, initialY);
@@ -122,9 +134,14 @@ class CanvasManager {
   }
 
   _startLine(x: number, y: number) {
-    this.ctx?.beginPath();
-    this.ctx?.moveTo(x, y);
-    this.ctx?.stroke();
+    if (!this.ctx) {
+      return;
+    }
+
+    this.ctx.beginPath();
+    this.ctx.strokeStyle = this.strokeColor;
+    this.ctx.moveTo(x, y);
+    this.ctx.stroke();
   }
 
   _sketchLine(x: number, y: number) {

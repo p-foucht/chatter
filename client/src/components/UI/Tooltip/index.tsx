@@ -1,19 +1,19 @@
-import React from "react";
-import RcTooltip from "rc-tooltip";
+import React from 'react';
+import RcTooltip from 'rc-tooltip';
 
-import styles from "./styles";
-import "rc-tooltip/assets/bootstrap.css";
-import "./overrides.css";
+import styles from './styles';
+import 'rc-tooltip/assets/bootstrap.css';
+import './overrides.css';
 
 type Position =
-  | "left"
-  | "right"
-  | "top"
-  | "bottom"
-  | "topLeft"
-  | "topRight"
-  | "bottomLeft"
-  | "bottomRight";
+  | 'left'
+  | 'right'
+  | 'top'
+  | 'bottom'
+  | 'topLeft'
+  | 'topRight'
+  | 'bottomLeft'
+  | 'bottomRight';
 
 interface Props {
   position?: Position;
@@ -21,11 +21,11 @@ interface Props {
   children: React.ReactElement;
 }
 
-const Tooltip: React.FC<Props> = ({ position = "top", tooltip, children }) => {
+const Tooltip: React.FC<Props> = ({ position = 'top', tooltip, children }) => {
   return (
     <RcTooltip
       mouseLeaveDelay={0}
-      trigger={["hover", "focus"]}
+      trigger={['hover', 'focus']}
       placement={position}
       overlay={<div>{tooltip}</div>}
       overlayClassName={styles.tooltip}

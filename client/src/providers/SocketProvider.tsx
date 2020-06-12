@@ -34,7 +34,6 @@ const SocketProvider: React.FC = ({ children }) => {
         const index = listeners.current.indexOf(cb);
         if (index > -1) {
           listeners.current.splice(index, 1);
-          console.log(listeners.current);
         }
       },
       sendMessage: (data: any) => {

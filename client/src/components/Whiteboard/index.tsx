@@ -2,15 +2,19 @@ import React from 'react';
 
 import RemoteCanvas from './RemoteCanvas';
 import LocalCanvas from './LocalCanvas';
+import Controls from './Controls';
+import { useWhiteboardState } from '../../hooks/whiteboard';
 
-// Todo - Render when whiteboard is selected
 const Whiteboard = () => {
-  return (
+  const [{ isActive }] = useWhiteboardState();
+
+  return isActive ? (
     <>
+      <Controls />
       <RemoteCanvas />
       <LocalCanvas />
     </>
-  );
+  ) : null;
 };
 
 export default Whiteboard;

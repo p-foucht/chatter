@@ -1,10 +1,8 @@
-import {
-    css
-} from "linaria";
+import { css } from 'linaria';
 
-const color = "#3f51b5";
+const color = '#3f51b5';
 
-const input = css `
+const input = css`
   display: block;
   width: 100%;
   margin-bottom: 2rem;
@@ -22,7 +20,7 @@ const input = css `
     outline: none;
   }
 `;
-const label = css `
+const label = css`
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.75rem;
@@ -31,19 +29,13 @@ const label = css `
   color: #848484;
 `;
 
-const terms = css `
-  color: ${color};
-  text-decoration: underline;
-  cursor: pointer;
-`;
-
-const error = css `
+const error = css`
   font-size: 1.2rem;
   color: red;
 `;
 
 export default {
-    input,
-    label,
-    error
+  input,
+  label,
+  error,
 };

@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import CanvasManager from './CanvasManager';
 import { useSocketApi } from '../../providers/SocketProvider';
+import { useWhiteboardState } from '../../hooks/whiteboard';
 
 import styles from './styles';
 
@@ -12,6 +13,7 @@ const Whiteboard = () => {
   const ctx = useRef<any>(null);
   const [canvasManager] = useState(() => new CanvasManager());
   const socketApi = useSocketApi();
+  const [{ strokeColor }] = useWhiteboardState();
 
   useLayoutEffect(() => {
     const initCanvas = () => {
@@ -84,6 +86,10 @@ const Whiteboard = () => {
 
     return () => document.removeEventListener('mouseup', endDraw, false);
   }, [canvasManager, socketApi]);
+
+  useEffect(() => {
+    canvasManager.setStrokeColor(strokeColor);
+  }, [strokeColor, canvasManager]);
 
   return <canvas ref={canvasEl} className={styles.wrapper} />;
 };
