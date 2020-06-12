@@ -1,6 +1,7 @@
 export interface AuthType {
   token: string;
+  username: string;
   isAuthenticated: boolean;
-  loading: boolean;
+  isLoading: boolean;
   authenticate: (data: any) => void;
 }

@@ -1,30 +1,31 @@
-const AWS = require('aws-sdk');
-const { v4: uuid } = require('uuid');
+const AWS = require("aws-sdk");
+const { v4: uuid } = require("uuid");
 
-const ddb = new AWS.DynamoDB.DocumentClient({ region: 'us-east-1' });
-const chime = new AWS.Chime({ region: 'us-east-1' });
-chime.endpoint = new AWS.Endpoint('https://service.chime.aws.amazon.com');
+const ddb = new AWS.DynamoDB.DocumentClient({ region: "us-east-1" });
+const chime = new AWS.Chime({ region: "us-east-1" });
+chime.endpoint = new AWS.Endpoint("https://service.chime.aws.amazon.com");
 
 const MEETINGS_TABLE = process.env.MEETINGS_TABLE;
 
 module.exports.join = async (event, context) => {
+  console.log(chime);
   const query = event.queryStringParameters;
 
-  console.log('event: ', JSON.stringify(event));
+  console.log("event: ", JSON.stringify(event));
 
   if (!query.title || !query.name || !query.region) {
-    console.log('Missing required params. Exiting');
+    console.log("Missing required params. Exiting");
     return response(
       400,
-      'application/json',
-      JSON.stringify({ error: 'Need parameters: title, name, region' })
+      "application/json",
+      JSON.stringify({ error: "Need parameters: title, name, region" })
     );
   }
 
   let meeting = await getMeeting(query.title);
 
   if (!meeting || isEmpty(meeting)) {
-    console.log('No existing meetings. Creating a new meeting');
+    console.log("No existing meetings. Creating a new meeting");
 
     const request = {
       ClientRequestToken: uuid(),
@@ -32,19 +33,21 @@ module.exports.join = async (event, context) => {
       // ExternalMeetingId: query.title.substring(0, 64),
     };
 
-    console.info('Creating new meeting params: ' + JSON.stringify(request));
+    console.info("Creating new meeting params: " + JSON.stringify(request));
 
     try {
-      console.info('Creating new meeting: ' + JSON.stringify(request));
+      console.info("Creating new meeting: " + JSON.stringify(request));
       meeting = await chime.createMeeting(request).promise();
-      console.log('Received meeting from chime: ', JSON.stringify(meeting));
+      console.log("Received meeting from chime: ", JSON.stringify(meeting));
       await putMeeting(query.title, meeting);
     } catch (e) {
-      console.log('Error creating/saving meeting: ', e.message);
+      console.log("Error creating/saving meeting: ", e.message);
     }
   }
 
-  console.info('Adding new attendee');
+  console.log(meeting);
+
+  console.info("Adding new attendee");
 
   try {
     const attendee = await chime
@@ -59,7 +62,7 @@ module.exports.join = async (event, context) => {
 
     return response(
       200,
-      'application/json',
+      "application/json",
       JSON.stringify(
         {
           JoinInfo: {
@@ -72,10 +75,10 @@ module.exports.join = async (event, context) => {
       )
     );
   } catch (e) {
-    console.log('Error creating attendee - ', e.message);
+    console.log("Error creating attendee - ", e.message);
     return response(
       500,
-      'application/json',
+      "application/json",
       JSON.stringify({ error: e.message })
     );
   }
@@ -92,11 +95,15 @@ async function getMeeting(title) {
       })
       .promise();
 
-    console.log('getMeeting: ', JSON.stringify(result));
+    console.log("getMeeting: ", JSON.stringify(result));
 
-    return isEmpty(meeting) ? null : meeting;
+    if (!isEmpty(result)) {
+      result.Item["Data"] = JSON.parse(result.Item["Data"]);
+      return result.Item["Data"];
+    }
+    return null;
   } catch (e) {
-    console.log('Something went wrong getting meeting: ', e.message);
+    console.log("Something went wrong getting meeting: ", e.message);
     return null;
   }
 }
@@ -118,9 +125,9 @@ function response(statusCode, contentType, body) {
   return {
     statusCode: statusCode,
     headers: {
-      'Content-Type': contentType,
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true,
+      "Content-Type": contentType,
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": true,
     },
     body: body,
     isBase64Encoded: false,

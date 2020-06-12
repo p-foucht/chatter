@@ -1,6 +1,6 @@
-import { css } from 'linaria';
+import { css } from "linaria";
 
-const color = '#3f51b5';
+const color = "#3f51b5";
 
 const input = css`
   display: block;
@@ -23,6 +23,7 @@ const input = css`
 const label = css`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 0.75rem;
   font-size: 1.4rem;
   font-weight: bold;

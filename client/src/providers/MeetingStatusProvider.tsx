@@ -6,8 +6,10 @@ import React, {
   useContext,
 } from "react";
 import { AudioVideoFacade } from "amazon-chime-sdk-js";
+import { useParams } from "react-router-dom";
 
 import { useChime } from "./ChimeProvider";
+import { useAuth } from "./AuthProvider";
 
 enum Status {
   LOADING,
@@ -20,6 +22,9 @@ const AVContext = createContext<AudioVideoFacade | null>(null);
 
 const MeetingStatusProvider: React.FC = ({ children }) => {
   const chime = useChime();
+  const params = useParams();
+  const title = params.meetingTitle;
+  const { username } = useAuth();
   const audioEl = useRef<HTMLAudioElement>(null);
   const [status, setStatus] = useState(Status.LOADING);
   const [audioVideo, setAudioVideo] = useState<AudioVideoFacade | null>(null);
@@ -27,11 +32,7 @@ const MeetingStatusProvider: React.FC = ({ children }) => {
   useEffect(() => {
     async function start() {
       try {
-        const av = await chime.createRoom(
-          "Chief's meeting",
-          "Master Chief",
-          "us-east-1"
-        );
+        const av = await chime.createRoom(title, username, "us-east-1");
         setAudioVideo(av);
       } catch (e) {
         setStatus(Status.FAILED);
@@ -50,7 +51,7 @@ const MeetingStatusProvider: React.FC = ({ children }) => {
     return () => {
       setAudioVideo(null);
     };
-  }, [chime]);
+  }, [chime, title, username]);
 
   return (
     <StatusContext.Provider value={status}>

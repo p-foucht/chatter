@@ -13,14 +13,14 @@ import { useAuth } from "../providers/AuthProvider";
 
 export const routes = {
   HOME: "/",
-  MEETING: "/meeting",
+  MEETING: "/meeting/:meetingTitle",
   AUTH: "/:mode",
 };
 
 const protectedRoutes = (
   <Switch>
-    <Redirect strict from="/signup" to="/" />
-    <Redirect strict from="/login" to="/" />
+    <Redirect strict from="/signup" to={routes.HOME} />
+    <Redirect strict from="/login" to={routes.HOME} />
     <Route path={routes.MEETING} exact>
       <Meeting />
     </Route>

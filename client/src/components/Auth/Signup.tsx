@@ -58,7 +58,10 @@ const Signup = (props) => {
           errorMessage="Password must be at least 6 characters"
         />
 
-        <div className={styles.checkboxRow}>
+        <div
+          className={styles.checkboxRow}
+          style={{ alignItems: "flex-start" }}
+        >
           <input
             className={styles.checkbox}
             type="checkbox"
