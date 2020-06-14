@@ -29,7 +29,7 @@ const AudioOutputList = () => {
 
 const VideoInputList = () => {
   const videoInputs = useVideoInputs();
-  const onClick = useSelectDevice('audio-input');
+  const onClick = useSelectDevice('video-input');
 
   return (
     <DeviceList title="Video input" onClick={onClick} devices={videoInputs} />
