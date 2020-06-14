@@ -1,5 +1,6 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, ReactNode } from 'react';
 import { css } from 'linaria';
+import Tooltip from '../../UI/Tooltip';
 
 const buttonStyles = css`
   height: 100%;
@@ -11,20 +12,22 @@ const buttonStyles = css`
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   onClick: () => void;
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
 }
 
 const ControlButton: React.FC<Props> = ({ icon, onClick, label, ...rest }) => {
   return (
-    <button
-      className={buttonStyles}
-      aria-label={label}
-      onClick={onClick}
-      {...rest}
-    >
-      {icon}
-    </button>
+    <Tooltip tooltip={label} position="right">
+      <button
+        className={buttonStyles}
+        aria-label={label}
+        onClick={onClick}
+        {...rest}
+      >
+        {icon}
+      </button>
+    </Tooltip>
   );
 };
 

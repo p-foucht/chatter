@@ -1,8 +1,7 @@
 import React from 'react';
 import { MdVideocam, MdVideocamOff } from 'react-icons/md';
 
-import IconButton from '../UI/IconButton';
-import Tooltip from '../UI/Tooltip';
+import ControlButton from './ControlButton';
 import {
   useLocalVideoState,
   useToggleLocalVideo,
@@ -14,14 +13,11 @@ const VideoButton = () => {
   const label = isActive ? 'Stop my video' : 'Start my video';
 
   return (
-    <Tooltip tooltip={label}>
-      <IconButton
-        className='mute-button'
-        icon={isActive ? <MdVideocam /> : <MdVideocamOff />}
-        onClick={toggleVideo}
-        label={label}
-      />
-    </Tooltip>
+    <ControlButton
+      icon={isActive ? <MdVideocam /> : <MdVideocamOff />}
+      onClick={toggleVideo}
+      label={label}
+    />
   );
 };
 

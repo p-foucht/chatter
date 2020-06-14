@@ -10,6 +10,14 @@ const wrapper = css`
   background: var(--bg-primary);
   padding: 1.25rem;
   z-index: 500;
+
+  > * {
+    margin-bottom: 1rem;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const item = css`
@@ -18,16 +26,12 @@ const item = css`
   align-items: center;
   height: 3rem;
   width: 3rem;
-  margin-bottom: 1rem;
   border-radius: var(--radius-light);
+  border: none;
   font-size: 1.5rem;
   background-color: var(--color-info-light);
   color: var(--color-grey-10);
   transition: background-color 220ms ease;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
 
   &:hover {
     background-color: var(--color-info-med);

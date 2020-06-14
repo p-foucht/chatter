@@ -11,4 +11,8 @@ const remoteWrapper = css`
   pointer-events: none;
 `;
 
-export default { wrapper, remoteWrapper };
+const localWrapper = css`
+  cursor: crosshair;
+`;
+
+export default { wrapper, remoteWrapper, localWrapper };
