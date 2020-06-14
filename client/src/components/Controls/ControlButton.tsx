@@ -1,7 +1,9 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 
-import IconButton from "../UI/IconButton";
-import Tooltip from "../UI/Tooltip";
+import IconButton from '../UI/IconButton';
+import Tooltip from '../UI/Tooltip';
+
+import styles from './styles';
 
 interface Props {
   label: string;
@@ -12,7 +14,7 @@ interface Props {
 const ControlButton: React.FC<Props> = ({ label, ...rest }) => {
   return (
     <Tooltip tooltip={label}>
-      <IconButton label={label} {...rest} />
+      <IconButton className={styles.controlButton} label={label} {...rest} />
     </Tooltip>
   );
 };

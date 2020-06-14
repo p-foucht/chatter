@@ -3,10 +3,10 @@ import { withRouter } from "react-router-dom";
 
 import Signup from "../../components/Auth/Signup";
 import Login from "../../components/Auth/Login";
-import Slider from "../../components/Auth/Slider";
+import Carousel from "../../components/Auth/Carousel";
+import { useAuth } from "../../providers/AuthProvider";
 
 import styles from "./styles";
-import { useAuth } from "../../providers/AuthProvider";
 
 type Props = {
   match: any;
@@ -14,20 +14,20 @@ type Props = {
 
 const Auth = (props: Props) => {
   const { mode } = props.match.params;
-  const { loading } = useAuth();
+  const { isLoading } = useAuth();
 
   return (
     <div className={styles.wrapper}>
       <div
         className={styles.container}
-        style={loading ? { pointerEvents: "none", opacity: "0.7" } : {}}
+        style={isLoading ? { pointerEvents: "none", opacity: "0.7" } : {}}
       >
         <div className={styles.left}>
           {mode === "signup" ? <Signup /> : <Login />}
         </div>
 
         <div className={styles.right}>
-          <Slider />
+          <Carousel />
         </div>
       </div>
     </div>

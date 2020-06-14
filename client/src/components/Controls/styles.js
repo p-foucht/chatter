@@ -1,13 +1,12 @@
 import { css } from 'linaria';
 
-export const controlBar = css`
+const controlBar = css`
   position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 0;
+  width: 100%;
   display: flex;
   justify-content: center;
-  padding: 1.75rem 2rem;
+  padding: 0.8rem;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   box-shadow: var(--shadow-heavy);
@@ -15,6 +14,11 @@ export const controlBar = css`
   z-index: 100;
 `;
 
+const controlButton = css`
+  font-size: 2.5rem;
+`;
+
 export default {
   controlBar,
+  controlButton,
 };

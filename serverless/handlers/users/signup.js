@@ -34,7 +34,7 @@ module.exports.handler = async (event, context) => {
       username,
       email,
       password: hash,
-    },
+    }
   };
 
   console.log("Writing params to DB: ", JSON.stringify(params));

@@ -1,17 +1,23 @@
-import React, { useRef, useLayoutEffect, useEffect, useState } from 'react';
+import React, { useRef, useLayoutEffect, useEffect } from 'react';
+import classNames from 'classnames';
 import { v4 as uuid } from 'uuid';
 
 import CanvasManager from './CanvasManager';
 import { useSocketApi } from '../../providers/SocketProvider';
+import { useWhiteboardState } from '../../hooks/whiteboard';
 
 import styles from './styles';
 
-const Whiteboard = () => {
+interface Props {
+  canvasManager: CanvasManager;
+}
+
+const Whiteboard: React.FC<Props> = ({ canvasManager }) => {
   const canvasEl = useRef<HTMLCanvasElement>(null);
   const isDrawing = useRef(false);
   const ctx = useRef<any>(null);
-  const [canvasManager] = useState(() => new CanvasManager());
   const socketApi = useSocketApi();
+  const [{ strokeColor }] = useWhiteboardState();
 
   useLayoutEffect(() => {
     const initCanvas = () => {
@@ -33,7 +39,10 @@ const Whiteboard = () => {
     initCanvas();
 
     window.addEventListener('resize', initCanvas, false);
-    return () => window.removeEventListener('resize', initCanvas);
+    return () => {
+      canvasManager.initializeState();
+      window.removeEventListener('resize', initCanvas);
+    };
   }, [canvasManager]);
 
   useEffect(() => {
@@ -70,14 +79,35 @@ const Whiteboard = () => {
   }, [canvasManager]);
 
   useEffect(() => {
+    const cb = (message) => {
+      const { type } = message;
+
+      switch (type) {
+        case 'clear':
+          canvasManager.clearCanvas();
+          break;
+
+        default:
+          break;
+      }
+    };
+    socketApi.subscribe(cb);
+
+    return () => socketApi.unsubscribe(cb);
+  }, [canvasManager, socketApi]);
+
+  useEffect(() => {
     const endDraw = () => {
       const line = canvasManager.stopLine();
       isDrawing.current = false;
-      socketApi.sendMessage({
-        action: 'whiteboard',
-        type: 'draw',
-        payload: line,
-      });
+
+      if (line) {
+        socketApi.sendMessage({
+          action: 'whiteboard',
+          type: 'draw',
+          payload: line,
+        });
+      }
     };
 
     document.addEventListener('mouseup', endDraw, false);
@@ -85,7 +115,16 @@ const Whiteboard = () => {
     return () => document.removeEventListener('mouseup', endDraw, false);
   }, [canvasManager, socketApi]);
 
-  return <canvas ref={canvasEl} className={styles.wrapper} />;
+  useEffect(() => {
+    canvasManager.setStrokeColor(strokeColor);
+  }, [strokeColor, canvasManager]);
+
+  return (
+    <canvas
+      ref={canvasEl}
+      className={classNames(styles.wrapper, styles.localWrapper)}
+    />
+  );
 };
 
 export default Whiteboard;

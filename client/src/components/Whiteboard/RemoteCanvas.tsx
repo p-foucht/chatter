@@ -1,14 +1,18 @@
-import React, { useRef, useLayoutEffect, useEffect, useState } from 'react';
+import React, { useRef, useLayoutEffect, useEffect } from 'react';
+import classNames from 'classnames';
 
 import CanvasManager from './CanvasManager';
 import { useSocketApi } from '../../providers/SocketProvider';
 
 import styles from './styles';
 
-const Whiteboard = () => {
+interface Props {
+  canvasManager: CanvasManager;
+}
+
+const Whiteboard: React.FC<Props> = ({ canvasManager }) => {
   const canvasEl = useRef<HTMLCanvasElement>(null);
   const ctx = useRef<any>(null);
-  const [canvasManager] = useState(() => new CanvasManager());
   const socketApi = useSocketApi();
 
   useLayoutEffect(() => {
@@ -37,8 +41,26 @@ const Whiteboard = () => {
   useEffect(() => {
     const cb = (message) => {
       const { type, payload } = message;
-      if (type === 'draw') {
-        canvasManager.drawFullLine(payload);
+
+      switch (type) {
+        case 'draw':
+          canvasManager.drawFullLine(payload);
+          break;
+
+        case 'undo':
+          canvasManager.deleteLineById(payload);
+          break;
+
+        case 'redo':
+          canvasManager.drawFullLine(payload);
+          break;
+
+        case 'clear':
+          canvasManager.clearCanvas();
+          break;
+
+        default:
+          break;
       }
     };
     socketApi.subscribe(cb);
@@ -47,7 +69,11 @@ const Whiteboard = () => {
   }, [canvasManager, socketApi]);
 
   return (
-    <canvas id="remote-canvas" ref={canvasEl} className={styles.wrapper} />
+    <canvas
+      id="remote-canvas"
+      ref={canvasEl}
+      className={classNames(styles.wrapper, styles.remoteWrapper)}
+    />
   );
 };
 

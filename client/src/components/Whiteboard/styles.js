@@ -7,4 +7,12 @@ const wrapper = css`
   z-index: 10;
 `;
 
-export default { wrapper };
+const remoteWrapper = css`
+  pointer-events: none;
+`;
+
+const localWrapper = css`
+  cursor: crosshair;
+`;
+
+export default { wrapper, remoteWrapper, localWrapper };

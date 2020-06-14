@@ -1,18 +1,16 @@
-import {
-  css
-} from 'linaria';
+import { css } from 'linaria';
 
-const wrapper = css `
+const wrapper = css`
   display: flex;
   height: 100%;
 `;
 
-const sidebar = css `
+const sidebar = css`
   flex-basis: 30%;
   max-width: 40rem;
 `;
 
-const meeting = css `
+const meeting = css`
   position: relative;
   flex: 1;
 `;
@@ -20,5 +18,5 @@ const meeting = css `
 export default {
   wrapper,
   sidebar,
-  meeting
+  meeting,
 };

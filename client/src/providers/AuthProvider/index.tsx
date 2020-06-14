@@ -3,34 +3,32 @@ import axios from "axios";
 
 import { AuthType } from "../../types/authTypes";
 
-// Not sure how I should write the authenticate method right here
-const Context = createContext({
-  token: "",
-  isAuthenticated: false,
-  loading: false,
-  authenticate: (data: any) => console.log(data),
-});
+const Context = createContext<AuthType | null>(null);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState("");
+  const [username, setUsername] = useState("");
   const [isAuthenticated, setAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   // Check local storage for token when app loads
   useEffect(() => {
     const uToken = localStorage.getItem("token");
-    if (!uToken) {
+    const uName = localStorage.getItem("username");
+    if (!uToken || !uName) {
       return;
     }
     setToken(uToken);
+    setUsername(uName);
     setAuthenticated(true);
   }, []);
 
   // Update or put token in local storage when it changes
   useEffect(() => {
     localStorage.setItem("token", token);
+    localStorage.setItem("username", username);
     setAuthenticated(token !== null);
-  }, [token]);
+  }, [token, username]);
 
   // Network req using axios, deafult mode is login, adds email field and changes url if mode is signup
   const authenticate = async (data: any) => {
@@ -48,8 +46,9 @@ const AuthProvider: React.FC = ({ children }) => {
 
     try {
       const res = await axios.post(url, req);
-      let { token } = res.data;
+      let { token, username } = res.data;
       setToken(token);
+      setUsername(username);
       setAuthenticated(token !== null);
     } catch (err) {
       console.log(err); // Manage error eventually
@@ -59,7 +58,9 @@ const AuthProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <Context.Provider value={{ token, isAuthenticated, loading, authenticate }}>
+    <Context.Provider
+      value={{ token, username, isAuthenticated, isLoading, authenticate }}
+    >
       {children}
     </Context.Provider>
   );
@@ -67,6 +68,10 @@ const AuthProvider: React.FC = ({ children }) => {
 
 const useAuth = (): AuthType => {
   const auth = useContext(Context);
+
+  if (!auth) {
+    throw new Error("Must be used in AuthProvider");
+  }
 
   return auth;
 };

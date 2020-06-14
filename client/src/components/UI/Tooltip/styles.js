@@ -1,7 +1,6 @@
-import { css } from "linaria";
+import { css } from 'linaria';
 
 export const tooltip = css`
-  padding-bottom: 0.3rem;
   animation: fade 175ms ease forwards;
   font-size: 0.9rem;
   font-weight: 600;

@@ -6,6 +6,7 @@ interface Plot {
 interface PlotCollection {
   id: string;
   plots: Plot[];
+  strokeColor: string;
 }
 
 class CanvasManager {
@@ -16,7 +17,8 @@ class CanvasManager {
   private plots: Plot[] = [];
   private height: number | null = null;
   private width: number | null = null;
-  private MAX_UNDO_COUNT = 5;
+  private strokeColor: string = 'black';
+  private MAX_UNDO_COUNT = 10;
 
   init(ctx: CanvasRenderingContext2D, height: number, width: number) {
     if (!this.ctx) {
@@ -29,9 +31,19 @@ class CanvasManager {
     this.ctx.lineCap = 'round';
   }
 
+  initializeState() {
+    this.ctx = null;
+    this.currentLineId = null;
+    this.lines = [];
+    this.erasedLines = [];
+    this.plots = [];
+    this.height = null;
+    this.width = null;
+  }
+
   startLine(x: number, y: number, id: string) {
     this.currentLineId = id;
-    this._startLine(x, y);
+    this._startLine(x, y, this.strokeColor);
   }
 
   sketchLine(x: number, y: number) {
@@ -39,15 +51,18 @@ class CanvasManager {
     this._sketchLine(x, y);
   }
 
-  stopLine(): PlotCollection {
+  stopLine() {
+    if (!this.plots.length) {
+      return;
+    }
+
     this._stopLine();
 
-    if (this.plots.length) {
-      this.lines.push({
-        id: this.currentLineId!,
-        plots: this.plots,
-      });
-    }
+    this.lines.push({
+      id: this.currentLineId!,
+      plots: this.plots,
+      strokeColor: this.strokeColor,
+    });
 
     this.currentLineId = null;
     this.plots = [];
@@ -56,13 +71,13 @@ class CanvasManager {
   }
 
   drawFullLine(collection: PlotCollection) {
-    if (!collection) {
+    if (!collection || !collection.plots.length) {
       return;
     }
-    const { plots } = collection;
+    const { plots, strokeColor } = collection;
 
     this.lines.push(collection);
-    this._drawPlots(plots);
+    this._drawPlots(plots, strokeColor);
   }
 
   clearCanvas() {
@@ -76,8 +91,8 @@ class CanvasManager {
   drawCurrentState() {
     this.clearCanvas();
 
-    this.lines.forEach(({ plots }) => {
-      this._drawPlots(plots);
+    this.lines.forEach(({ plots, strokeColor }) => {
+      this._drawPlots(plots, strokeColor);
     });
   }
 
@@ -95,6 +110,8 @@ class CanvasManager {
 
     this.erasedLines.push(line);
     this.drawCurrentState();
+
+    return line;
   }
 
   redo() {
@@ -107,11 +124,36 @@ class CanvasManager {
     this.lines.push(line);
 
     this.drawCurrentState();
+    return line;
   }
 
-  _drawPlots(plots: Plot[]) {
+  setStrokeColor(color: string) {
+    this.strokeColor = color;
+
+    if (this.ctx) {
+      this.ctx.strokeStyle = color;
+    }
+  }
+
+  deleteLineById(id: string) {
+    const index = this.lines.findIndex((plot) => plot.id === id);
+    if (index === -1) {
+      return null;
+    }
+
+    const line = this.lines.splice(index, 1);
+    this.drawCurrentState();
+    return line;
+  }
+
+  _drawPlots(plots: Plot[], strokeColor?: string) {
+    if (!plots.length) {
+      return;
+    }
+
     const { x: initialX, y: initialY } = plots[0];
-    this._startLine(initialX, initialY);
+    const color = strokeColor || this.strokeColor;
+    this._startLine(initialX, initialY, color);
 
     for (let i = 1; i < plots.length; i++) {
       const { x, y } = plots[i];
@@ -121,10 +163,15 @@ class CanvasManager {
     this._stopLine();
   }
 
-  _startLine(x: number, y: number) {
-    this.ctx?.beginPath();
-    this.ctx?.moveTo(x, y);
-    this.ctx?.stroke();
+  _startLine(x: number, y: number, color) {
+    if (!this.ctx) {
+      return;
+    }
+
+    this.ctx.beginPath();
+    this.ctx.strokeStyle = color;
+    this.ctx.moveTo(x, y);
+    this.ctx.stroke();
   }
 
   _sketchLine(x: number, y: number) {

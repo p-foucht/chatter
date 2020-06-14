@@ -1,13 +1,11 @@
-import {
-    css
-} from "linaria";
+import { css } from "linaria";
 
-const wrapper = css `
+const wrapper = css`
   height: 100%;
   background: #f5f6f7;
 `;
 
-const container = css `
+const container = css`
   display: flex;
   position: absolute;
   top: 50%;
@@ -17,28 +15,24 @@ const container = css `
   max-width: 1180px;
   border-radius: 10px;
   transform: translate(-50%, -50%);
-  box-shadow: 1px 2px 4px 4px #eee;
+  box-shadow: 0.1rem 0.2rem 0.4rem 0.4rem #eee;
   background: #fff;
   overflow: hidden;
 `;
 
-const left = css `
+const left = css`
   width: 50%;
   padding: 4rem 8rem 8rem 8rem;
 `;
 
-const right = css `
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+const right = css`
   width: 50%;
   background: #3f51b5;
 `;
 
 export default {
-    wrapper,
-    container,
-    left,
-    right,
+  wrapper,
+  container,
+  left,
+  right,
 };

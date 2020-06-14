@@ -24,19 +24,19 @@ const item = css `
     align-items: center;
     width: 50%;
     padding: 1rem;
-    border-bottom: 0.2rem solid #ccc;
+    border-bottom: 0.3rem solid #ccc;
     color: #777;
     cursor: pointer;
 `
 
 const active = css `
     color: #0788FF;
-    border-bottom: 0.2rem solid #0788FF;
+    border-bottom: 0.3rem solid #0788FF;
 `
 
 const icon = css `
-    height: 2.5rem;
-    width: 2.5rem;
+    height: 3rem;
+    width: 3rem;
     color: currentColor;
 `
 
