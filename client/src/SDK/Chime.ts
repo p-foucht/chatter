@@ -7,14 +7,14 @@ import {
   MeetingSession,
   MeetingSessionConfiguration,
   ReconnectingPromisedWebSocket,
-} from "amazon-chime-sdk-js";
+} from 'amazon-chime-sdk-js';
 
-import { BASE_API_URL } from "../constants/URLs";
+import { BASE_API_URL } from '../constants/URLs';
 
 class ChimeSdkWrapper {
   private static WEB_SOCKET_TIMEOUT_MS = 10000;
 
-  logger: ConsoleLogger = new ConsoleLogger("SDK", LogLevel.WARN);
+  logger: ConsoleLogger = new ConsoleLogger('SDK', LogLevel.WARN);
 
   meetingSession: MeetingSession | null = null;
 
@@ -29,20 +29,20 @@ class ChimeSdkWrapper {
   region: string | null = null;
 
   supportedChimeRegions: any[] = [
-    { label: "United States (N. Virginia)", value: "us-east-1" },
-    { label: "Japan (Tokyo)", value: "ap-northeast-1" },
-    { label: "Singapore", value: "ap-southeast-1" },
-    { label: "Australia (Sydney)", value: "ap-southeast-2" },
-    { label: "Canada", value: "ca-central-1" },
-    { label: "Germany (Frankfurt)", value: "eu-central-1" },
-    { label: "Sweden (Stockholm)", value: "eu-north-1" },
-    { label: "Ireland", value: "eu-west-1" },
-    { label: "United Kingdom (London)", value: "eu-west-2" },
-    { label: "France (Paris)", value: "eu-west-3" },
-    { label: "Brazil (São Paulo)", value: "sa-east-1" },
-    { label: "United States (Ohio)", value: "us-east-2" },
-    { label: "United States (N. California)", value: "us-west-1" },
-    { label: "United States (Oregon)", value: "us-west-2" },
+    { label: 'United States (N. Virginia)', value: 'us-east-1' },
+    { label: 'Japan (Tokyo)', value: 'ap-northeast-1' },
+    { label: 'Singapore', value: 'ap-southeast-1' },
+    { label: 'Australia (Sydney)', value: 'ap-southeast-2' },
+    { label: 'Canada', value: 'ca-central-1' },
+    { label: 'Germany (Frankfurt)', value: 'eu-central-1' },
+    { label: 'Sweden (Stockholm)', value: 'eu-north-1' },
+    { label: 'Ireland', value: 'eu-west-1' },
+    { label: 'United Kingdom (London)', value: 'eu-west-2' },
+    { label: 'France (Paris)', value: 'eu-west-3' },
+    { label: 'Brazil (São Paulo)', value: 'sa-east-1' },
+    { label: 'United States (Ohio)', value: 'us-east-2' },
+    { label: 'United States (N. California)', value: 'us-west-1' },
+    { label: 'United States (Oregon)', value: 'us-west-2' },
   ];
 
   currentAudioInputDevice: any | null = null;
@@ -87,7 +87,7 @@ class ChimeSdkWrapper {
     let region: string;
     try {
       const response = await fetch(`https://l.chime.aws`, {
-        method: "GET",
+        method: 'GET',
       });
       const json = await this.extractJSON(response);
       region = json.region;
@@ -114,7 +114,7 @@ class ChimeSdkWrapper {
     region: string | null
   ): Promise<AudioVideoFacade> => {
     if (!title || !name || !region) {
-      throw new Error("Chime.CreateRoom: Missing required params");
+      throw new Error('Chime.CreateRoom: Missing required params');
     }
 
     const url = `${BASE_API_URL}/join?title=${encodeURIComponent(
@@ -122,7 +122,7 @@ class ChimeSdkWrapper {
     )}&name=${encodeURIComponent(name)}&region=${encodeURIComponent(region)}`;
 
     const response = await fetch(url, {
-      method: "POST",
+      method: 'POST',
     });
 
     const json = await this.extractJSON(response);
@@ -134,7 +134,7 @@ class ChimeSdkWrapper {
 
     const { JoinInfo } = json;
     if (!JoinInfo) {
-      throw new Error("Error creating room, invalid response from server");
+      throw new Error('Error creating room, invalid response from server');
     }
     this.configuration = new MeetingSessionConfiguration(
       JoinInfo.Meeting,
@@ -175,7 +175,7 @@ class ChimeSdkWrapper {
     }
 
     window.addEventListener(
-      "unhandledrejection",
+      'unhandledrejection',
       (event: PromiseRejectionEvent) => {
         this.logError(event.reason);
       }
@@ -197,7 +197,7 @@ class ChimeSdkWrapper {
     try {
       await this.messagingSocket?.close(ChimeSdkWrapper.WEB_SOCKET_TIMEOUT_MS);
     } catch (error) {
-      console.error("Unable to send close message on messaging socket.");
+      console.error('Unable to send close message on messaging socket.');
       this.logError(error);
     }
 
@@ -221,28 +221,31 @@ class ChimeSdkWrapper {
    * ====================================================================
    */
 
-  chooseAudioInputDevice = async (device: any) => {
+  chooseAudioInputDevice = async (device) => {
     try {
-      await this.deviceController?.chooseAudioInputDevice(device.value);
+      console.log('Choosing audio input device');
+      console.log(device);
+      console.log(this.deviceController);
+      await this.deviceController?.chooseAudioInputDevice(device);
       this.currentAudioInputDevice = device;
     } catch (error) {
       this.logError(error);
     }
   };
 
-  chooseAudioOutputDevice = async (device: any) => {
+  chooseAudioOutputDevice = async (device) => {
     try {
-      await this.deviceController?.chooseAudioOutputDevice(device.value);
+      await this.deviceController?.chooseAudioOutputDevice(device);
       this.currentAudioOutputDevice = device;
     } catch (error) {
       this.logError(error);
     }
   };
 
-  chooseVideoInputDevice = async (device: any) => {
+  chooseVideoInputDevice = async (device) => {
     try {
       console.log(this.deviceController);
-      await this.deviceController?.chooseVideoInputDevice(device.value);
+      await this.deviceController?.chooseVideoInputDevice(device);
       this.currentVideoInputDevice = device;
     } catch (error) {
       this.logError(error);
@@ -267,27 +270,27 @@ class ChimeSdkWrapper {
     }
 
     const av = this.audioVideo;
-    console.debug("Disabling video.");
+    console.debug('Disabling video.');
 
     try {
       await av.stopLocalVideoTile();
-      console.debug("Stopped tile");
+      console.debug('Stopped tile');
     } catch (error) {
-      console.error("Error stopping local video.");
+      console.error('Error stopping local video.');
       this.logError(error);
     }
 
     try {
       await av.chooseVideoInputDevice(null);
     } catch (error) {
-      console.error("Error discarding video input.");
+      console.error('Error discarding video input.');
       this.logError(error);
     }
 
     try {
       await this.leaveRoom(end);
     } catch (error) {
-      console.error("Error leaving room after stopping local video.");
+      console.error('Error leaving room after stopping local video.');
       this.logError(error);
     }
   };

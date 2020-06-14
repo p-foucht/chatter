@@ -7,4 +7,8 @@ const wrapper = css`
   z-index: 10;
 `;
 
-export default { wrapper };
+const remoteWrapper = css`
+  pointer-events: none;
+`;
+
+export default { wrapper, remoteWrapper };

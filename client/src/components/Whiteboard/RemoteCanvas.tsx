@@ -1,4 +1,5 @@
 import React, { useRef, useLayoutEffect, useEffect, useState } from 'react';
+import classNames from 'classnames';
 
 import CanvasManager from './CanvasManager';
 import { useSocketApi } from '../../providers/SocketProvider';
@@ -47,7 +48,11 @@ const Whiteboard = () => {
   }, [canvasManager, socketApi]);
 
   return (
-    <canvas id="remote-canvas" ref={canvasEl} className={styles.wrapper} />
+    <canvas
+      id="remote-canvas"
+      ref={canvasEl}
+      className={classNames(styles.wrapper, styles.remoteWrapper)}
+    />
   );
 };
 

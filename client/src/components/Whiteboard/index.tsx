@@ -8,13 +8,13 @@ import { useWhiteboardState } from '../../hooks/whiteboard';
 const Whiteboard = () => {
   const [{ isActive }] = useWhiteboardState();
 
-  return isActive ? (
+  return (
     <>
-      <Controls />
+      {isActive && <Controls />}
       <RemoteCanvas />
-      <LocalCanvas />
+      {isActive && <LocalCanvas />}
     </>
-  ) : null;
+  );
 };
 
 export default Whiteboard;

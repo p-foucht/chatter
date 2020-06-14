@@ -1,8 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import { AudioInputProvider, useAudioInputs } from "./AudioInputProvider";
-import { AudioOutputProvider, useAudioOutputs } from "./AudioOutputProvider";
-import { VideoInputProvider, useVideoInputs } from "./VideoInputProvider";
+import { AudioInputProvider, useAudioInputs } from './AudioInputProvider';
+import { AudioOutputProvider, useAudioOutputs } from './AudioOutputProvider';
+import { VideoInputProvider, useVideoInputs } from './VideoInputProvider';
+import { useChime } from '../ChimeProvider';
 
 const DevicesProvider: React.FC = ({ children }) => {
   return (
@@ -14,4 +15,26 @@ const DevicesProvider: React.FC = ({ children }) => {
   );
 };
 
-export { DevicesProvider, useAudioInputs, useAudioOutputs, useVideoInputs };
+const useSelectDevice = (deviceType) => {
+  const chime = useChime();
+
+  if (deviceType === 'audio-input') {
+    return (device) => chime.chooseAudioInputDevice(device);
+  }
+
+  if (deviceType === 'audio-output') {
+    return (device) => chime.chooseAudioOutputDevice(device);
+  }
+
+  if (deviceType === 'video-input') {
+    return (device) => chime.chooseVideoInputDevice(device);
+  }
+};
+
+export {
+  DevicesProvider,
+  useAudioInputs,
+  useAudioOutputs,
+  useVideoInputs,
+  useSelectDevice,
+};

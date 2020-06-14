@@ -1,15 +1,14 @@
-import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { MdVideocam, MdAdd } from 'react-icons/md';
 
-import { MdVideocam, MdAdd } from "react-icons/md";
-
-import styles from "./styles";
+import styles from './styles';
 
 const Home = () => {
   const history = useHistory();
 
   const joinMeetingHandler = () => {
-    const response = prompt("What meeting would you like to join?");
+    const response = prompt('What meeting would you like to join?');
     if (response) {
       history.push(`/meeting/${response}`);
     }

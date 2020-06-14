@@ -1,15 +1,15 @@
-import React, { createContext, useEffect, useState, useContext } from "react";
-import { DeviceChangeObserver } from "amazon-chime-sdk-js";
+import React, { createContext, useEffect, useState, useContext } from 'react';
+import { DeviceChangeObserver } from 'amazon-chime-sdk-js';
 
-import { useAudioVideo } from "../MeetingStatusProvider";
-import { useChime } from "../ChimeProvider";
+import { useAudioVideo } from '../MeetingStatusProvider';
+import { useChime } from '../ChimeProvider';
 
-const Context = createContext<any>({});
+const Context = createContext<MediaDeviceInfo[]>([]);
 
 const VideoInputProvider: React.FC = ({ children }) => {
   const chime = useChime();
   const audioVideo = useAudioVideo();
-  const [videoInputs, setVideoInputs] = useState<any>({});
+  const [videoInputs, setVideoInputs] = useState<any>([]);
 
   useEffect(() => {
     if (!audioVideo) {
@@ -18,7 +18,7 @@ const VideoInputProvider: React.FC = ({ children }) => {
 
     const observer: DeviceChangeObserver = {
       videoInputsChanged: (newvideoInputs: MediaDeviceInfo[]) => {
-        console.log("VideoInputProvider: videoInputChanged");
+        console.log('VideoInputProvider:: videoInputChanged');
 
         setVideoInputs(newvideoInputs);
       },
