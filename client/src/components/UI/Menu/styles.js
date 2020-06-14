@@ -2,7 +2,7 @@ import { css } from 'linaria';
 
 const menu = css`
   position: relative;
-  width: 20rem;
+  width: 22rem;
   padding: 1rem 0;
   border-radius: var(--radius-light);
   background-color: var(--bg-secondary);

@@ -38,7 +38,7 @@ const button = css`
   }
 
   &:focus::before {
-    box-shadow: 0 0 0 2pt var(--color_info_light);
+    box-shadow: 0 0 0 2pt var(--color-info-light);
   }
 `;
 

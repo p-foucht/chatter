@@ -21,7 +21,7 @@ const item = css`
   margin-bottom: 1rem;
   border-radius: var(--radius-light);
   font-size: 1.5rem;
-  background-color: var(--color_info_light);
+  background-color: var(--color-info-light);
   color: var(--color-grey-10);
   transition: background-color 220ms ease;
 
@@ -30,7 +30,7 @@ const item = css`
   }
 
   &:hover {
-    background-color: var(--color_info_med);
+    background-color: var(--color-info-med);
   }
 `;
 
