@@ -37,7 +37,7 @@ const AudioOutputProvider: React.FC = ({ children }) => {
     const initOutputs = async () => {
       const outputs = await audioVideo.listAudioInputDevices();
       try {
-        chime?.deviceController?.chooseAudioOutputDevice(outputs[0].deviceId);
+        chime?.chooseAudioOutputDevice(outputs[0]);
       } catch (e) {
         console.log(`Could not select initial audio output - ${e.message}`);
       }

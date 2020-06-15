@@ -37,9 +37,7 @@ const VideoInputProvider: React.FC = ({ children }) => {
     const getInputs = async () => {
       const inputs = await audioVideo.listVideoInputDevices();
       try {
-        await chime.deviceController?.chooseVideoInputDevice(
-          inputs[0].deviceId
-        );
+        await chime.chooseVideoInputDevice(inputs[0]);
       } catch (e) {
         console.log(`Could not select initial video input - ${e.message}`);
       }

@@ -223,30 +223,47 @@ class ChimeSdkWrapper {
 
   chooseAudioInputDevice = async (device) => {
     try {
-      console.log('Choosing audio input device');
-      console.log(device);
-      console.log(this.deviceController);
+      console.log(`Choosing audio input device`, device);
       await this.deviceController?.chooseAudioInputDevice(device);
       this.currentAudioInputDevice = device;
     } catch (error) {
+      console.log('Something went wrong choosing audio input device');
       this.logError(error);
     }
   };
 
   chooseAudioOutputDevice = async (device) => {
     try {
+      console.log(`Choosing audio output device`, device);
       await this.deviceController?.chooseAudioOutputDevice(device);
       this.currentAudioOutputDevice = device;
     } catch (error) {
+      console.log('Something went wrong choosing audio output device');
       this.logError(error);
     }
   };
 
   chooseVideoInputDevice = async (device) => {
     try {
-      console.log(this.deviceController);
+      console.log(`Choosing video output device`, device);
       await this.deviceController?.chooseVideoInputDevice(device);
       this.currentVideoInputDevice = device;
+    } catch (error) {
+      console.log('Something went wrong choosing video input device');
+      this.logError(error);
+    }
+  };
+
+  chooseCurrentVideoInputDevice = async () => {
+    if (!this.currentVideoInputDevice) {
+      console.log('No current video input device to select');
+      return;
+    }
+
+    try {
+      await this.deviceController?.chooseVideoInputDevice(
+        this.currentVideoInputDevice
+      );
     } catch (error) {
       this.logError(error);
     }
