@@ -3,6 +3,8 @@ import React, { useRef, useEffect, useState, createRef } from 'react';
 import { useAudioVideo } from '../../providers/MeetingStatusProvider';
 import { VideoTileState } from 'amazon-chime-sdk-js';
 
+import classNames from 'classnames';
+
 import styles from './styles';
 
 const VideoGrid = () => {
@@ -14,7 +16,9 @@ const VideoGrid = () => {
 
   videoElements.current = new Array(16);
 
-  const indexMap = {};
+  // const indexMap = {};
+
+  const [indexMap, setIndexMap] = useState({});
 
   const acquireVideoElement = (tileId: number) => {
     for (let i = 0; i < 16; i += 1) {
@@ -25,6 +29,7 @@ const VideoGrid = () => {
 
     for (let i = 0; i < 16; i += 1) {
       if (!indexMap.hasOwnProperty(i)) {
+        setIndexMap({ ...indexMap, [i]: tileId });
         indexMap[i] = tileId;
         return (videoElements.current[i] as unknown) as HTMLVideoElement;
       }
@@ -36,7 +41,11 @@ const VideoGrid = () => {
   const releaseVideoElement = (tileId) => {
     for (let i = 0; i < 16; i += 1) {
       if (indexMap[i] === tileId) {
-        delete indexMap[i];
+        let obj = {
+          ...indexMap,
+        };
+        delete obj[i];
+        setIndexMap(obj);
         return;
       }
     }
@@ -77,10 +86,25 @@ const VideoGrid = () => {
     return () => av.removeObserver(observer);
   }, [av]);
 
+  const numOfVideos = Object.keys(indexMap).length;
+  let width = '100%';
+  if (numOfVideos % 4 === 0) {
+    width = '25%';
+  } else if (numOfVideos % 3 === 0) {
+    width = '33%';
+  } else if (numOfVideos % 2 === 0) {
+    width = '50%';
+  }
+
   const elements = ARRAY_OF_16.map((el, index) => {
+    const hasIndex = indexMap.hasOwnProperty(index);
+
+    const classes = classNames(styles.video, { [styles.active]: hasIndex });
+
     return (
       <video
-        className={styles.video}
+        style={{ width: width }}
+        className={classes}
         muted
         ref={(ref) => (videoElements.current[index] = ref)}
       />

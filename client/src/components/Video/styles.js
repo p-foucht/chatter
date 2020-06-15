@@ -7,11 +7,14 @@ const grid = css`
 
 const video = css`
   position: relative;
-  display: block;
-  width: 40rem;
+  display: none;
   height: auto;
-  margin: 3rem;
+  padding: 3rem;
   border-radius: var(--radius-light);
 `;
 
-export default { grid, video };
+const active = css`
+  display: block;
+`;
+
+export default { grid, video, active };

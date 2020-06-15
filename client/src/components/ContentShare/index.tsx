@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from "react";
-import { AudioVideoObserver } from "amazon-chime-sdk-js";
+import React, { useEffect, useRef } from 'react';
+import { AudioVideoObserver } from 'amazon-chime-sdk-js';
 
-import { useAudioVideo } from "../../providers/MeetingStatusProvider";
+import { useAudioVideo } from '../../providers/MeetingStatusProvider';
 
-import styles from "./styles";
+import styles from './styles';
 
 const ContentShare = () => {
   const av = useAudioVideo();
