@@ -1,6 +1,5 @@
 import React from 'react';
 
-import MeetingLayout from '../../components/MeetingLayout/MeetingLayout';
 import { MeetingStatusProvider } from '../../providers/MeetingStatusProvider';
 import { RosterProvider } from '../../providers/RosterProvider';
 import { DevicesProvider } from '../../providers/DevicesProvider';
@@ -9,6 +8,7 @@ import { ContentShareProvider } from '../../providers/ContentShareProvider';
 import { MessagingProvider } from '../../providers/MessagingProvider';
 import { SocketProvider } from '../../providers/SocketProvider';
 import { SideNavProvider } from '../../providers/SideNavProvider';
+import MeetingCanvas from '../../components/MeetingCanvas';
 
 const Meeting = () => (
   <MeetingStatusProvider>
@@ -19,7 +19,7 @@ const Meeting = () => (
             <SocketProvider>
               <MessagingProvider>
                 <SideNavProvider>
-                  <MeetingLayout />
+                  <MeetingCanvas />
                 </SideNavProvider>
               </MessagingProvider>
             </SocketProvider>

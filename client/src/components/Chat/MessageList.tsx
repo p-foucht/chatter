@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import Message from './Message';
 import { useChatMessages } from '../../providers/MessagingProvider';
 
-import styles, { chat } from './styles';
+import styles from './styles';
 
 const MessageList = () => {
   const chatMessages = useChatMessages();

@@ -62,9 +62,7 @@ const Controls: React.FC<Props> = ({ managers }) => {
   return (
     <Portal root="whiteboard-root">
       <div className={styles.wrapper}>
-        <div className={styles.item}>
-          <ColorPicker />
-        </div>
+        <ColorPicker className={styles.item} />
         <ControlButton
           onClick={undo}
           className={styles.item}

@@ -38,8 +38,10 @@ const VideoInputList = () => {
 
 const DeviceList = ({ devices, onClick, title }) => (
   <Menu.ItemGroup title={title}>
-    {devices.map((device) => (
-      <Menu.Item onClick={() => onClick(device)}>{device.label}</Menu.Item>
+    {devices.map((device, index) => (
+      <Menu.Item key={index} onClick={() => onClick(device)}>
+        {device.label}
+      </Menu.Item>
     ))}
   </Menu.ItemGroup>
 );

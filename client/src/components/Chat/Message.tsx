@@ -14,11 +14,10 @@ function generateContent(text: string) {
   var re = /(\:[^]+\:)/g;
   let arr = text.split(re).filter(Boolean);
 
-  console.log(arr);
   let emojiOnly = arr.every(
     (el) => (el.startsWith(':') && el.endsWith(':')) || el === ' '
   );
-  console.log(emojiOnly);
+
   let content = arr.map((el, index) => {
     if (el.startsWith(':') && el.endsWith(':')) {
       return <Emoji key={index} emoji={el} size={emojiOnly ? 32 : 18} />;

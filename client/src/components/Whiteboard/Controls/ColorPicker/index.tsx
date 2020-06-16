@@ -7,7 +7,11 @@ import ControlButton from '../ControlButton';
 
 import styles from './styles';
 
-const Controls = () => {
+interface Props {
+  className?: string;
+}
+
+const Controls: React.FC<Props> = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
   // Two color states are required to update the picker UI
   // while not updating the global state on every drag event
@@ -27,6 +31,7 @@ const Controls = () => {
       </div>
 
       <ControlButton
+        className={className || ''}
         aria-haspopup
         aria-expanded={isOpen}
         label={isOpen ? 'Close color picker' : 'Open color picker'}

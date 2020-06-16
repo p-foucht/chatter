@@ -1,9 +1,6 @@
 import { css } from 'linaria';
 
 const controlBar = css`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
   display: flex;
   justify-content: center;
   padding: 0.8rem;

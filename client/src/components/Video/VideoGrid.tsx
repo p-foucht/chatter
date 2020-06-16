@@ -1,12 +1,11 @@
-import React, { useRef, useEffect, useState, createRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import classNames from 'classnames';
 
+import VideoTile from './VideoTile';
 import { useAudioVideo } from '../../providers/MeetingStatusProvider';
 import { VideoTileState } from 'amazon-chime-sdk-js';
 
-import classNames from 'classnames';
-
 import styles from './styles';
-import VideoTile from './VideoTile';
 
 const VideoGrid = () => {
   const av = useAudioVideo();
@@ -108,6 +107,7 @@ const VideoGrid = () => {
     const classes = classNames(styles.video, { [styles.active]: hasIndex });
     return (
       <VideoTile
+        key={index}
         index={index}
         width={width}
         classes={classes}
