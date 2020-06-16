@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AudioVideoObserver } from 'amazon-chime-sdk-js';
 
 import { useAudioVideo } from '../../providers/MeetingStatusProvider';
@@ -8,6 +8,8 @@ import styles from './styles';
 const ContentShare = () => {
   const av = useAudioVideo();
   const videoEl = useRef<HTMLVideoElement>(null);
+
+  const [isActive, setActive] = useState(false);
 
   useEffect(() => {
     if (!av) {
@@ -19,8 +21,8 @@ const ContentShare = () => {
         if (!tileState.tileId || !tileState.isContent) {
           return;
         }
-
         av.bindVideoElement(tileState.tileId, videoEl.current!);
+        setActive(!isActive);
       },
     };
 
@@ -30,7 +32,10 @@ const ContentShare = () => {
   }, [av]);
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      style={{ display: isActive ? 'block' : 'none' }}
+    >
       <video ref={videoEl} />
     </div>
   );

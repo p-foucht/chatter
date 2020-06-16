@@ -8,9 +8,11 @@ import VideoGrid from '../Video/VideoGrid';
 
 const MeetingCanvas = () => (
   <>
-    <VideoGrid />
+    <div>
+      <ContentShare />
+      <VideoGrid />
+    </div>
     <Whiteboard />
-    <ContentShare />
     <LocalVideo />
     <ControlBar />
   </>

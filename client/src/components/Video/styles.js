@@ -5,11 +5,16 @@ const grid = css`
   flex-wrap: wrap;
 `;
 
+const videoContainer = css`
+  display: none;
+  padding: 1rem;
+`;
+
 const video = css`
   position: relative;
-  display: none;
+  display: block;
   height: auto;
-  padding: 3rem;
+  max-height: calc(100vh - 51px);
   border-radius: var(--radius-light);
 `;
 
@@ -17,4 +22,4 @@ const active = css`
   display: block;
 `;
 
-export default { grid, video, active };
+export default { grid, video, active, videoContainer };

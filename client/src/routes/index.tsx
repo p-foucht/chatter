@@ -1,27 +1,27 @@
-import React from "react";
+import React from 'react';
 import {
   Switch,
   Route,
   BrowserRouter as Router,
   Redirect,
-} from "react-router-dom";
+} from 'react-router-dom';
 
-import Meeting from "../scenes/Meeting";
-import Home from "../scenes/Home/Home";
-import Auth from "../scenes/Auth";
-import { useAuth } from "../providers/AuthProvider";
+import Meeting from '../scenes/Meeting';
+import Home from '../scenes/Home/Home';
+import Auth from '../scenes/Auth';
+import { useAuth } from '../providers/AuthProvider';
 
 export const routes = {
-  HOME: "/",
-  MEETING: "/meeting/:meetingTitle",
-  AUTH: "/:mode",
+  HOME: '/',
+  MEETING: '/meeting/:meetingTitle',
+  AUTH: '/:mode',
 };
 
 const protectedRoutes = (
   <Switch>
-    <Redirect strict from="/signup" to={routes.HOME} />
-    <Redirect strict from="/login" to={routes.HOME} />
-    <Route path={routes.MEETING} exact>
+    <Redirect strict from='/signup' to={routes.HOME} />
+    <Redirect strict from='/login' to={routes.HOME} />
+    <Route path={routes.MEETING}>
       <Meeting />
     </Route>
     <Route path={routes.HOME}>
@@ -35,7 +35,6 @@ const unprotectedRoutes = (
     <Route path={routes.AUTH} exact>
       <Auth />
     </Route>
-    <Redirect to="/signup" />
   </Switch>
 );
 

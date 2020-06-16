@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MdSend } from 'react-icons/md';
 
 import { useSendChatMessage } from '../../providers/MessagingProvider';
@@ -18,20 +18,24 @@ function formatAMPM(date) {
   return strTime;
 }
 
-const ChatInput = () => {
+type Props = {
+  text: any;
+  setText: any;
+};
+
+const ChatInput = (props: Props) => {
   const { username } = useAuth();
   const sendChatMessage = useSendChatMessage();
-  const [text, setText] = useState('');
 
   const sendHandler = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (text) {
+    if (props.text) {
       sendChatMessage({
-        text,
+        text: props.text,
         author: username,
         timestamp: formatAMPM(new Date()),
       });
-      setText('');
+      props.setText('');
     }
   };
 
@@ -39,13 +43,13 @@ const ChatInput = () => {
     <div>
       <form onSubmit={sendHandler} className={styles.inputBackground}>
         <input
-          value={text}
-          onChange={(e) => setText(e.target.value)}
+          value={props.text}
+          onChange={(e) => props.setText(e.target.value)}
           className={styles.input}
-          type="text"
-          placeholder="Send a message"
+          type='text'
+          placeholder='Send a message'
         />
-        <button type="submit" className={styles.sendBtn}>
+        <button type='submit' className={styles.sendBtn}>
           <MdSend className={styles.sendIcon} />
         </button>
       </form>

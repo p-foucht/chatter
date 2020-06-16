@@ -5,7 +5,6 @@ export const chat = css`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  padding: 2rem;
 `;
 
 // Chat message styles
@@ -18,7 +17,7 @@ export const row = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 `;
 
 export const author = css`
@@ -41,8 +40,7 @@ export const text = css`
 
 // Margin is a temporary fix to make border-top fill entire width
 export const inputWrapper = css`
-  margin: 0 -2rem;
-  padding: 1rem 2rem 0 2rem;
+  padding: 1rem 2rem 1rem 2rem;
   border-top: 0.2rem solid var(--color-grey-50);
   font-size: 2.4rem;
   color: #444;
@@ -55,6 +53,7 @@ export const inputOptions = css`
 `;
 
 export const optionIcon = css`
+  position: relative;
   margin-left: 1rem;
   cursor: pointer;
 `;
@@ -118,6 +117,17 @@ export const sendIcon = css`
   color: #fff;
 `;
 
+export const messageList = css`
+  height: 100%;
+  max-height: calc(100vh - 53px - 104px);
+  padding: 1rem;
+  overflow-y: auto;
+`;
+
+export const continued = css`
+  margin-top: -1rem;
+`;
+
 export default {
   chat,
   message,
@@ -132,4 +142,6 @@ export default {
   input,
   sendBtn,
   sendIcon,
+  messageList,
+  continued,
 };
