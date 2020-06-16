@@ -10,7 +10,7 @@ import { ContentShareProvider } from '../../providers/ContentShareProvider';
 import { MessagingProvider } from '../../providers/MessagingProvider';
 import { SocketProvider } from '../../providers/SocketProvider';
 
-import styles from './styles';
+import styles from '../../components/MeetingCanvas/styles';
 
 const Meeting = () => (
   <MeetingStatusProvider>
@@ -20,14 +20,7 @@ const Meeting = () => (
           <RosterProvider>
             <SocketProvider>
               <MessagingProvider>
-                <div className={styles.wrapper}>
-                  <div className={styles.meeting}>
-                    <MeetingCanvas />
-                  </div>
-                  <div className={styles.sidebar}>
-                    <Sidebar />
-                  </div>
-                </div>
+                <MeetingCanvas />
               </MessagingProvider>
             </SocketProvider>
           </RosterProvider>
