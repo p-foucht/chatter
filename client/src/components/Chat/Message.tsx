@@ -11,7 +11,7 @@ type Props = {
 };
 
 function generateContent(text: string) {
-  var re = /(\:[^]+\:)/g;
+  var re = /(:[^]+:)/g;
   let arr = text.split(re).filter(Boolean);
 
   let emojiOnly = arr.every(

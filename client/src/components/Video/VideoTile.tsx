@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import styles from './styles';
 
 type Props = {
@@ -7,6 +8,7 @@ type Props = {
   width: string;
   classes: any;
   active: boolean;
+  styles: any;
 };
 
 const VideoTile = React.forwardRef((props: Props, ref: any) => (
@@ -18,7 +20,7 @@ const VideoTile = React.forwardRef((props: Props, ref: any) => (
   >
     <video
       key={props.index}
-      style={{ width: '100%' }}
+      style={{ maxHeight: props.styles.height + 'px' }}
       className={styles.video}
       muted
       ref={ref}

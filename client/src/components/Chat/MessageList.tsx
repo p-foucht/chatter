@@ -10,13 +10,12 @@ const MessageList = () => {
 
   let messagesEnd: any = {};
 
-  const scrollToBottom = () => {
-    messagesEnd.scrollIntoView({ behaivor: 'smooth ' });
-  };
-
   useEffect(() => {
+    const scrollToBottom = () => {
+      messagesEnd.scrollIntoView({ behaivor: 'smooth ' });
+    };
     scrollToBottom();
-  }, [chatMessages]);
+  }, [chatMessages, messagesEnd]);
 
   const messages = chatMessages.map(
     (

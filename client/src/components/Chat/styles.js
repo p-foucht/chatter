@@ -119,7 +119,7 @@ export const sendIcon = css`
 
 export const messageList = css`
   height: 100%;
-  max-height: calc(100vh - 53px - 104px);
+  max-height: calc(100vh - 5.3rem - 10.4rem);
   padding: 1rem;
   overflow-y: auto;
 `;

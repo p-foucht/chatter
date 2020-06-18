@@ -3,7 +3,6 @@ import { css } from 'linaria';
 const wrapper = css`
   display: flex;
   height: 100%;
-  overflow: hidden;
 `;
 
 const sidebar = css`
