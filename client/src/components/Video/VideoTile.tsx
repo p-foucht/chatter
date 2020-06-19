@@ -5,26 +5,24 @@ import styles from './styles';
 
 type Props = {
   index: number;
-  width: string;
   classes: any;
   active: boolean;
-  styles: any;
+  onDoubleClick: any;
+  id: any;
+  isFullscreen?: boolean;
+  mini?: boolean;
 };
 
 const VideoTile = React.forwardRef((props: Props, ref: any) => (
   <div
-    style={{ width: props.width }}
+    onDoubleClick={props.onDoubleClick}
     className={classNames(styles.videoContainer, {
       [styles.active]: props.active,
+      [styles.mini]: props.mini,
+      [styles.border]: props.isFullscreen,
     })}
   >
-    <video
-      key={props.index}
-      style={{ maxHeight: props.styles.height + 'px' }}
-      className={styles.video}
-      muted
-      ref={ref}
-    />
+    <video key={props.index} className={styles.video} muted ref={ref} />
   </div>
 ));
 

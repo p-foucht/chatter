@@ -1,10 +1,10 @@
 import React from 'react';
 import { MdSend } from 'react-icons/md';
 
-import { useSendChatMessage } from '../../providers/MessagingProvider';
-import { useAuth } from '../../providers/AuthProvider';
+import { useSendChatMessage } from '../../../providers/MessagingProvider';
+import { useAuth } from '../../../providers/AuthProvider';
 
-import styles from './styles';
+import styles from '../styles';
 
 function formatAMPM(date) {
   let hours = date.getHours();

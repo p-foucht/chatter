@@ -1,5 +1,12 @@
 import { css } from 'linaria';
 
+export const title = css`
+  margin-top: 1rem;
+  font-size: 1.8rem;
+  text-align: center;
+  color: #434448;
+`;
+
 export const chat = css`
   display: flex;
   flex-direction: column;
@@ -128,8 +135,29 @@ export const continued = css`
   margin-top: -1rem;
 `;
 
+export const entranceContent = css`
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: #434448;
+`;
+
+export const entranceText = css`
+  display: block;
+  margin: 0 1rem;
+`;
+
+export const entranceRow = css`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1.5rem 0;
+`;
+
 export default {
   chat,
+  title,
   message,
   row,
   author,
@@ -144,4 +172,7 @@ export default {
   sendIcon,
   messageList,
   continued,
+  entranceContent,
+  entranceText,
+  entranceRow,
 };

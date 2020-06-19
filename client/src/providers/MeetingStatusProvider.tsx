@@ -4,12 +4,12 @@ import React, {
   useState,
   useRef,
   useContext,
-} from "react";
-import { AudioVideoFacade } from "amazon-chime-sdk-js";
-import { useParams } from "react-router-dom";
+} from 'react';
+import { AudioVideoFacade } from 'amazon-chime-sdk-js';
+import { useParams } from 'react-router-dom';
 
-import { useChime } from "./ChimeProvider";
-import { useAuth } from "./AuthProvider";
+import { useChime } from './ChimeProvider';
+import { useAuth } from './AuthProvider';
 
 enum Status {
   LOADING,
@@ -32,7 +32,7 @@ const MeetingStatusProvider: React.FC = ({ children }) => {
   useEffect(() => {
     async function start() {
       try {
-        const av = await chime.createRoom(title, username, "us-east-1");
+        const av = await chime.createRoom(title, username, 'us-east-1');
         setAudioVideo(av);
       } catch (e) {
         setStatus(Status.FAILED);

@@ -4,7 +4,7 @@ import { MdTagFaces, MdAttachFile } from 'react-icons/md';
 import ChatInput from './ChatInput';
 import EmojiPicker from './EmojiPicker';
 
-import styles from './styles';
+import styles from '../styles';
 
 //Eventually need to handle file drop and choosing emojis, a good library is emoji-picker-react
 
@@ -13,7 +13,7 @@ const ChatInputWrapper = () => {
   const [isPickerOpen, setPickerOpen] = useState(false);
 
   const onEmojiClick = (emojiObject) => {
-    setText((previousText) => previousText + ':' + emojiObject.id + ':');
+    setText((previousText) => previousText + ':' + emojiObject.id + ': ');
   };
 
   return (

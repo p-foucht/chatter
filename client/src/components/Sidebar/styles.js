@@ -18,12 +18,13 @@ const list = css`
 
 const item = css`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 50%;
   padding: 1rem;
-  border-bottom: 0.3rem solid #ccc;
-  color: #bbb;
+  border-bottom: 0.3rem solid #999;
+  color: #999;
   cursor: pointer;
 `;
 
@@ -33,8 +34,9 @@ const active = css`
 `;
 
 const icon = css`
-  height: 3rem;
-  width: 3rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  margin-bottom: 0.5rem;
   color: currentColor;
 `;
 

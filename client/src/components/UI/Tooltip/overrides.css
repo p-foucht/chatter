@@ -6,6 +6,7 @@
   border-radius: 0.3rem;
   background: var(--bg-secondary);
   color: var(--text-secondary);
+  z-index: 1000000;
 }
 
 /* TOP PLACEMENT */

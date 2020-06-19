@@ -1,7 +1,7 @@
-import React from "react";
-import { MdVolumeDown, MdVolumeUp } from "react-icons/md";
-import useRealtimeVolume from "../../hooks/useRealtimeVolume";
-import styles from "./styles";
+import React from 'react';
+import { MdMic } from 'react-icons/md';
+import useRealtimeVolume from '../../hooks/useRealtimeVolume';
+import styles from './styles';
 
 interface Props {
   name: string;
@@ -11,9 +11,9 @@ interface Props {
 const VolumeIndicator: React.FC<Props> = ({ name, id }) => {
   const { volume } = useRealtimeVolume(id);
   return volume > 0.25 ? (
-    <MdVolumeUp className={styles.indicator} color="#49b482" />
+    <MdMic className={styles.indicator} color='#49b482' size={20} />
   ) : (
-    <MdVolumeDown className={styles.indicator} />
+    <MdMic className={styles.indicator} color='#888' size={20} />
   );
 };
 

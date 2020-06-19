@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useLayoutEffect } from 'react';
 import classNames from 'classnames';
 
 import VideoTile from './VideoTile';
@@ -7,6 +7,7 @@ import { VideoTileState } from 'amazon-chime-sdk-js';
 import { useContentShareState } from '../../providers/ContentShareProvider';
 
 import styles from './styles';
+import './index.css';
 
 const VideoGrid = () => {
   const av = useAudioVideo();
@@ -18,12 +19,19 @@ const VideoGrid = () => {
   const [size, setSize] = useState(0);
 
   const [height, setHeight] = useState(0);
+  const [width, setWidth] = useState(0);
   const containerRef: any = useRef();
 
+  const fullscreenVideoElement: any = useRef(null);
+
+  const [isFullscreen, setIsFullScreen] = useState(false);
+  const [fullscreenId, setFullscreenId] = useState(-1);
+
   // Find height of parent container to help choose video tile heights
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (containerRef.current !== null) {
       setHeight(containerRef.current.parentElement.clientHeight);
+      setWidth(containerRef.current.parentElement.clientWidth);
     }
   }, []);
 
@@ -90,70 +98,91 @@ const VideoGrid = () => {
     return () => av.removeObserver(observer);
   }, [av]);
 
+  const createFullScreenElement = (id: any) => {
+    av?.bindVideoElement(
+      id,
+      (fullscreenVideoElement.current as unknown) as HTMLVideoElement
+    );
+    setIsFullScreen(true);
+    setFullscreenId(id);
+  };
+
+  const closeFullScreen = () => {
+    setFullscreenId(-1);
+    setIsFullScreen(false);
+  };
+
+  generateAspectRatioClass(height, width, size, isSomeoneSharing);
+
   const elements = ARRAY_OF_16.map((el, index) => {
     const hasIndex = indexMapRef.current.hasOwnProperty(index);
     const classes = classNames(styles.video, { [styles.active]: hasIndex });
-    let vidStyles = generateVideoStyles(height, size, isSomeoneSharing);
+
+    let id = indexMapRef.current[index];
+    let tileIsFullscreen = id === fullscreenId;
+    let mini = isFullscreen || isSomeoneSharing;
 
     return (
       <VideoTile
-        styles={vidStyles}
+        isFullscreen={tileIsFullscreen}
+        onDoubleClick={
+          tileIsFullscreen ? closeFullScreen : () => createFullScreenElement(id)
+        }
+        id={id}
         key={index}
         index={index}
-        width={vidStyles.width}
         classes={classes}
         active={hasIndex}
+        mini={mini}
         ref={(ref) => (videoElements.current[index] = ref)}
       />
     );
   });
 
+  let grid = cssClass(size);
+
   return (
-    <div ref={containerRef} className={styles.container}>
-      <div className={isSomeoneSharing ? styles.row : styles.grid}>
+    <div
+      ref={containerRef}
+      className={classNames(styles.container, {
+        [styles.fill]: !isSomeoneSharing,
+      })}
+    >
+      <div
+        className={
+          isSomeoneSharing || isFullscreen ? styles.row : 'grid ' + grid
+        }
+      >
         {elements}
       </div>
+      <video
+        ref={fullscreenVideoElement}
+        className={styles.video}
+        style={{
+          display: isFullscreen && !isSomeoneSharing ? 'block' : 'none',
+        }}
+      />
     </div>
   );
 };
 
-// Create the width and maxHeights of the video tiles
-function generateVideoStyles(
-  containerHeight: any,
-  numberOfVideos: any,
-  isSomeoneSharing: boolean
+function generateAspectRatioClass(
+  containerHeight,
+  containerWidth,
+  numberOfVideos,
+  isSomeoneSharing
 ) {
-  let rows;
-  let width = '100%';
-  let height;
+  let ratio = containerWidth / containerHeight;
 
-  if (isSomeoneSharing) {
-    return { width: '20rem', height: '200px' };
+  let aspectRatio = 1;
+}
+
+function cssClass(size, aspectRatio?) {
+  let string = `grid--size-${size}`;
+  if (aspectRatio) {
+    string += `.${aspectRatio}`;
   }
-
-  if (numberOfVideos <= 2) {
-    rows = 1;
-  } else if (numberOfVideos <= 6) {
-    rows = 2;
-  } else if (numberOfVideos <= 12) {
-    rows = 3;
-  } else {
-    rows = 4;
-  }
-
-  if (numberOfVideos === 4 || numberOfVideos === 3) {
-    width = '50%';
-  } else if (numberOfVideos % 4 === 0) {
-    width = '25%';
-  } else if (numberOfVideos % 3 === 0 || numberOfVideos >= 5) {
-    width = '33%';
-  } else if (numberOfVideos % 2 === 0) {
-    width = '50%';
-  }
-
-  height = containerHeight / rows;
-
-  return { width: width, height: height };
+  return string;
 }
 
 export default VideoGrid;

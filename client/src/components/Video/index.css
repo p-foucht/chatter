@@ -1,0 +1,115 @@
+.grid {
+  display: grid;
+  height: 100%;
+  width: 100%;
+}
+
+/* 1 Tile */
+
+.grid--size-1 {
+  grid-template: 1fr / 1fr;
+}
+
+/* 2 Tiles */
+.grid--size-2 {
+  grid-template: 1fr / repeat(2, 1fr);
+}
+
+/* 3 Tiles */
+
+.grid--size-3 {
+  grid-template: repeat(2, 1fr) / 1fr 1fr;
+}
+
+/* 4 tiles */
+
+.grid--size-4 {
+  grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+}
+
+.grid--size-4.slim {
+  grid-template: repeat(4, 1fr) / 1fr;
+}
+
+.grid--size-4.r2by3 {
+  grid-template: repeat(4, 1fr) / repeat(2, 1fr);
+}
+
+.grid--size-4.r1by1,
+.grid--size-4.r4by3 {
+  grid-template: repeat(3, 1fr) / repeat(2, 1fr);
+}
+
+.grid--size-4.r21by9 {
+  grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+}
+
+.grid--size-4.r29by9 {
+  grid-template: 2fr 2fr / repeat(3, 1fr);
+}
+
+.grid--size-4.r36by9 {
+  grid-template: 2fr 1fr / repeat(4, 1fr);
+}
+
+/* 5 tiles */
+
+.grid--size-5 {
+  grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+}
+
+/* 6 tiles */
+
+.grid--size-6 {
+  grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+}
+
+/* 7 tiles */
+.grid--size-7 {
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+/* 8 tiles */
+.grid--size-8 {
+  grid-template: repeat(2, 1fr) / repeat(4, 1fr);
+}
+
+/* 9 tiles */
+.grid--size-9 {
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+/* 10 tiles */
+.grid--size-10 {
+  grid-template: repeat(4, 1fr) / repeat(3, 1fr);
+}
+
+/* 11 tiles */
+.grid--size-11 {
+  grid-template: repeat(4, 1fr) / repeat(3, 1fr);
+}
+
+/* 12 tiles */
+.grid--size-12 {
+  grid-template: repeat(3, 1fr) / repeat(4, 1fr);
+}
+
+/* 13 tiles */
+.grid--size-13 {
+  grid-template: repeat(4, 1fr) / repeat(3, 1fr);
+}
+
+/* 14 tiles */
+.grid--size-14 {
+  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+}
+
+/* 15 tiles */
+.grid--size-15 {
+  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+}
+
+/* 16 tiles */
+.grid--size-16 {
+  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+}

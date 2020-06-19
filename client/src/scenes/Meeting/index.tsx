@@ -15,15 +15,15 @@ const Meeting = () => (
     <DevicesProvider>
       <LocalVideoProvider>
         <ContentShareProvider>
-          <RosterProvider>
+          <MessagingProvider>
             <SocketProvider>
-              <MessagingProvider>
+              <RosterProvider>
                 <SideNavProvider>
                   <MeetingCanvas />
                 </SideNavProvider>
-              </MessagingProvider>
+              </RosterProvider>
             </SocketProvider>
-          </RosterProvider>
+          </MessagingProvider>
         </ContentShareProvider>
       </LocalVideoProvider>
     </DevicesProvider>

@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 
 import Message from './Message';
-import { useChatMessages } from '../../providers/MessagingProvider';
+import EntranceMessage from './EntranceMessage';
+import { useChatMessages } from '../../../providers/MessagingProvider';
 
-import styles from './styles';
+import styles from '../styles';
 
 const MessageList = () => {
   const chatMessages = useChatMessages();
@@ -19,9 +20,18 @@ const MessageList = () => {
 
   const messages = chatMessages.map(
     (
-      el: { text: string; author: string; timestamp: string },
+      el: {
+        text: string;
+        author: string;
+        timestamp: string;
+        entrance?: boolean;
+      },
       index: number
     ) => {
+      if (el.entrance) {
+        return <EntranceMessage key={index} text={el.text} />;
+      }
+
       let continued = false;
 
       if (index > 0) {

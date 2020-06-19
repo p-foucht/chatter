@@ -1,17 +1,18 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Emoji } from 'emoji-mart';
-import styles from './styles';
+import styles from '../styles';
 
 type Props = {
   author: string;
   timestamp: string;
   text: string;
   continued: boolean;
+  entrance?: boolean;
 };
 
 function generateContent(text: string) {
-  var re = /(:[^]+:)/g;
+  var re = /(:[^:]+:)/g;
   let arr = text.split(re).filter(Boolean);
 
   let emojiOnly = arr.every(
@@ -20,7 +21,7 @@ function generateContent(text: string) {
 
   let content = arr.map((el, index) => {
     if (el.startsWith(':') && el.endsWith(':')) {
-      return <Emoji key={index} emoji={el} size={emojiOnly ? 32 : 18} />;
+      return <Emoji key={index} emoji={el} size={emojiOnly ? 32 : 20} />;
     }
     return el;
   });
@@ -30,6 +31,9 @@ function generateContent(text: string) {
 }
 
 const Message = (props: Props) => {
+  if (props.entrance) {
+    return <p className={styles.text}>{props.text}</p>;
+  }
   let content = generateContent(props.text);
 
   let classes = classNames(styles.message, {

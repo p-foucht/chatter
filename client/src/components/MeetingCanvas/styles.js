@@ -3,6 +3,7 @@ import { css } from 'linaria';
 const wrapper = css`
   display: flex;
   height: 100%;
+  background: #131315;
 `;
 
 const sidebar = css`
@@ -27,10 +28,18 @@ const controls = css`
   position: relative;
 `;
 
+const fullscreenIcon = css`
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  cursor: pointer;
+`;
+
 export default {
   wrapper,
   sidebar,
   meeting,
   meetingContent,
   controls,
+  fullscreenIcon,
 };
