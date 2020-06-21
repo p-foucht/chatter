@@ -4,7 +4,7 @@ export const title = css`
   margin-top: 1rem;
   font-size: 1.8rem;
   text-align: center;
-  color: #434448;
+  color: var(--color-grey-30);
 `;
 
 export const chat = css`
@@ -25,30 +25,34 @@ export const row = css`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.75rem;
+  font-weight: 600;
 `;
 
 export const author = css`
   font-size: 1.4rem;
-  color: #0788ff;
+  color: var(--color-info-light);
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
 `;
 
 export const timestamp = css`
-  font-size: 12px;
-  color: #999;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-grey-50);
 `;
 
 export const text = css`
   font-size: 1.4rem;
   line-height: 1.5;
-  color: #434448;
+  color: var(--color-grey-30);
 `;
 
 // Input and option styles
 
 // Margin is a temporary fix to make border-top fill entire width
 export const inputWrapper = css`
-  padding: 1rem 2rem 1rem 2rem;
-  border-top: 0.2rem solid var(--color-grey-50);
   font-size: 2.4rem;
   color: #444;
   z-index: 100;
@@ -56,26 +60,41 @@ export const inputWrapper = css`
 export const inputOptions = css`
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 1rem;
+  padding: 0 2rem;
+  color: var(--color-grey-70);
 `;
 
 export const optionIcon = css`
   position: relative;
   margin-left: 1rem;
   cursor: pointer;
+  transition: color 200ms ease;
+
+  &:hover {
+    color: var(--color-grey-40);
+  }
+`;
+
+export const inputForm = css`
+  padding: 1rem 2rem 2rem;
 `;
 
 export const inputBackground = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.7rem 1rem;
   border-radius: 0.5rem;
-  border: 0.2rem solid var(--color-grey-50);
+  border: 0.2rem solid transparent;
+  background-color: var(--color-grey-80);
   transition: border-color 250ms ease, background-color 250ms ease;
+
+  &:hover {
+    background-color: #37404c;
+  }
 
   &:focus-within {
     color: var(--text-secondary);
+    background-color: var(--color-grey-100);
     border: 0.2rem solid var(--color-info-light);
 
     button {
@@ -89,11 +108,20 @@ export const input = css`
   border: none;
   font-size: 1.4rem;
   background: transparent;
+  resize: none;
+  font-family: inherit;
+  padding: 1rem 1.5rem;
+  min-height: 4rem;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-light);
 
   &:active,
   &:focus {
-    border: none;
     outline: none;
+  }
+
+  &::placeholder {
+    color: var(--text-primary);
   }
 `;
 
@@ -102,9 +130,10 @@ export const sendBtn = css`
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
+  margin-right: 0.8rem;
   border: 0.1rem solid transparent;
   border-radius: 50%;
-  background-color: var(--color-grey-50);
+  background-color: var(--color-grey-90);
   cursor: pointer;
   transition: background-color 200ms ease;
 
@@ -116,6 +145,10 @@ export const sendBtn = css`
   &:focus {
     outline: none;
   }
+
+  > svg {
+    transform: translateX(0.1rem);
+  }
 `;
 
 export const sendIcon = css`
@@ -126,8 +159,8 @@ export const sendIcon = css`
 
 export const messageList = css`
   height: 100%;
-  max-height: calc(100vh - 5.3rem - 10.4rem);
-  padding: 1rem;
+  max-height: calc(100vh - 18.5rem);
+  padding: 2rem;
   overflow-y: auto;
 `;
 
@@ -140,7 +173,7 @@ export const entranceContent = css`
   align-items: center;
   font-size: 1.4rem;
   line-height: 1.5;
-  color: #434448;
+  color: var(--color-grey-30);
 `;
 
 export const entranceText = css`
@@ -164,6 +197,7 @@ export default {
   timestamp,
   text,
   inputWrapper,
+  inputForm,
   inputOptions,
   optionIcon,
   inputBackground,

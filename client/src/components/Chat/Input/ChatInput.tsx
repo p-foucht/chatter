@@ -1,5 +1,6 @@
 import React from 'react';
 import { MdSend } from 'react-icons/md';
+import TextareaAutosize from 'react-autosize-textarea';
 
 import { useSendChatMessage } from '../../../providers/MessagingProvider';
 import { useAuth } from '../../../providers/AuthProvider';
@@ -40,16 +41,15 @@ const ChatInput = (props: Props) => {
   };
 
   return (
-    <div>
+    <div className={styles.inputForm}>
       <form onSubmit={sendHandler} className={styles.inputBackground}>
-        <input
+        <TextareaAutosize
           value={props.text}
-          onChange={(e) => props.setText(e.target.value)}
+          onChange={(e: any) => props.setText(e.target.value)}
           className={styles.input}
-          type='text'
-          placeholder='Send a message'
+          placeholder="Send a message"
         />
-        <button type='submit' className={styles.sendBtn}>
+        <button type="submit" className={styles.sendBtn}>
           <MdSend className={styles.sendIcon} />
         </button>
       </form>

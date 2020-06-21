@@ -24,9 +24,9 @@ const EntranceMessage = (props: Props) => {
   return (
     <div className={styles.entranceRow}>
       <p className={styles.entranceContent}>
-        <Emoji emoji='sunglasses' size={24} />
+        <Emoji emoji="sunglasses" size={24} />
         <span className={styles.entranceText}>{props.text}</span>
-        <Emoji emoji='sunglasses' size={24} />
+        <Emoji emoji="sunglasses" size={24} />
       </p>
       <span className={styles.timestamp}>{formatAMPM(new Date())}</span>
     </div>

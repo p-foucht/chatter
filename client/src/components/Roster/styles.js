@@ -3,10 +3,8 @@ import { css } from 'linaria';
 export const roster = css`
   height: auto;
   min-height: 15rem;
-  background-color: #fff;
-  color: #434448;
-  padding: 1rem;
-  border-bottom: 1px solid #999;
+  padding: 2rem;
+  border-bottom: 0.2rem solid var(--color-grey-80);
   box-shadow: var(--shadow-heavy);
   resize: vertical;
   overflow-y: auto;
@@ -37,7 +35,6 @@ export const user = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  text-transform: uppercase;
 `;
 
 export const profile = css`
@@ -47,12 +44,12 @@ export const profile = css`
   height: 2.5rem;
   width: 2.5rem;
   margin-right: 1rem;
-  border-radius: 0.3rem;
+  border-radius: 100%;
   font-size: 1.5rem;
   font-weight: bold;
-  text-transform: uppercase;
   background-color: #0e79ce;
   color: #fff;
+  text-transform: uppercase;
 `;
 
 export default {

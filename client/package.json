@@ -19,6 +19,7 @@
     "framer-motion": "^1.11.0",
     "rc-tooltip": "^4.2.1",
     "react": "^16.13.1",
+    "react-autosize-textarea": "^7.0.0",
     "react-color": "^2.18.1",
     "react-dom": "^16.13.1",
     "react-full-screen": "^0.2.4",

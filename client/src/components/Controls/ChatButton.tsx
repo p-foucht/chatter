@@ -1,5 +1,5 @@
 import React from 'react';
-import { MdChat } from 'react-icons/md';
+import { BsChatDotsFill } from 'react-icons/bs';
 
 import ControlButton from './ControlButton';
 
@@ -12,7 +12,7 @@ const ChatButton = () => {
 
   return (
     <ControlButton
-      icon={isOpen ? <MdChat /> : <MdChat />}
+      icon={<BsChatDotsFill />}
       onClick={() => setOpen(!isOpen)}
       label={label}
     />

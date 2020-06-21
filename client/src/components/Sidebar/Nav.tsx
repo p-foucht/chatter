@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { MdChat, MdGroup, MdThumbsUpDown } from 'react-icons/md';
+import { MdThumbsUpDown } from 'react-icons/md';
+import { BsChatDotsFill, BsPeopleFill } from 'react-icons/bs';
 
 import { View } from './index';
 
@@ -20,8 +21,7 @@ const Nav = (props: Props) => (
         })}
         onClick={() => props.setView('chat')}
       >
-        <MdChat className={styles.icon} />
-        <span>Chatroom</span>
+        <BsChatDotsFill className={styles.icon} />
       </li>
       <li
         className={classNames(styles.item, {
@@ -29,8 +29,7 @@ const Nav = (props: Props) => (
         })}
         onClick={() => props.setView('roster')}
       >
-        <MdGroup className={styles.icon} />
-        <span>Viewers</span>
+        <BsPeopleFill className={styles.icon} />
       </li>
       <li
         className={classNames(styles.item, {
@@ -39,7 +38,6 @@ const Nav = (props: Props) => (
         onClick={() => props.setView('reaction')}
       >
         <MdThumbsUpDown className={styles.icon} />
-        <span>Reactions</span>
       </li>
     </ul>
   </nav>

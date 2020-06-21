@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import Message from './Message';
 import EntranceMessage from './EntranceMessage';
@@ -8,15 +8,11 @@ import styles from '../styles';
 
 const MessageList = () => {
   const chatMessages = useChatMessages();
-
-  let messagesEnd: any = {};
+  const bottomEl = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const scrollToBottom = () => {
-      messagesEnd.scrollIntoView({ behaivor: 'smooth ' });
-    };
-    scrollToBottom();
-  }, [chatMessages, messagesEnd]);
+    bottomEl?.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatMessages]);
 
   const messages = chatMessages.map(
     (
@@ -56,12 +52,7 @@ const MessageList = () => {
     <div className={styles.messageList}>
       {messages}
 
-      <div
-        style={{ float: 'left', clear: 'both' }}
-        ref={(el) => {
-          messagesEnd = el;
-        }}
-      ></div>
+      <div style={{ float: 'left', clear: 'both' }} ref={bottomEl}></div>
     </div>
   );
 };
