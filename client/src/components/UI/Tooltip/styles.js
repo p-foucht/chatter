@@ -4,6 +4,7 @@ export const tooltip = css`
   animation: fade 175ms ease forwards;
   font-size: 0.9rem;
   font-weight: 600;
+  z-index: 1000000;
 
   @keyframes fade {
     0% {

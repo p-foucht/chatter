@@ -7,6 +7,7 @@ import ContentShareButton from './ContentShareButton';
 import LeaveMeetingButton from './LeaveMeetingButton';
 import WhiteboardButton from './WhiteboardButton';
 import Settings from './Settings';
+import ChatButton from './ChatButton';
 
 import styles from './styles';
 
@@ -19,6 +20,7 @@ const ControlBar = () => {
         <ContentShareButton />
         <LeaveMeetingButton />
         <WhiteboardButton />
+        <ChatButton />
         <Settings />
       </ButtonGroup>
     </div>

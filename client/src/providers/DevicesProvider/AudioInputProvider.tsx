@@ -37,8 +37,6 @@ const AudioInputProvider: React.FC = ({ children }) => {
     const initInputs = async () => {
       const inputs = await audioVideo.listAudioInputDevices();
       try {
-        console.log('@@@@@@@@ initializing inputs');
-        console.log(inputs);
         await chime.chooseAudioInputDevice(inputs[0]);
       } catch (e) {
         console.log(`Could not select initial audio input - ${e.message}`);
@@ -48,11 +46,6 @@ const AudioInputProvider: React.FC = ({ children }) => {
 
     initInputs();
   }, [audioVideo, chime]);
-
-  console.log('@@@@@@@@@@@@@@ AudioInputProvider @@@@@@@@@@@@@@');
-
-  console.log(audioInputs);
-  console.log(chime.audioInputDevices);
 
   return <Context.Provider value={audioInputs}>{children}</Context.Provider>;
 };

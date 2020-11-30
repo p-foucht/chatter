@@ -4,10 +4,10 @@ import React, {
   useState,
   useCallback,
   useContext,
-} from "react";
-import { DataMessage } from "amazon-chime-sdk-js";
+} from 'react';
+import { DataMessage } from 'amazon-chime-sdk-js';
 
-import { useAudioVideo } from "../MeetingStatusProvider";
+import { useAudioVideo } from '../MeetingStatusProvider';
 
 const StateContext = createContext<any>([]);
 const MessageSetterContext = createContext<any>(() => {});
@@ -29,9 +29,9 @@ const MessagingProvider = ({ children }) => {
       setMessages((currentMessages) => [...currentMessages, message]);
     };
 
-    av.realtimeSubscribeToReceiveDataMessage("chat", callback);
+    av.realtimeSubscribeToReceiveDataMessage('chat', callback);
 
-    return () => av.realtimeUnsubscribeFromReceiveDataMessage("chat");
+    return () => av.realtimeUnsubscribeFromReceiveDataMessage('chat');
   }, [av]);
 
   return (
@@ -50,7 +50,7 @@ const useSendChatMessage = () => {
   const sendChatMessage = useCallback(
     (data: any) => {
       setMessage((messages) => [...messages, data]);
-      av?.realtimeSendDataMessage("chat", JSON.stringify(data));
+      av?.realtimeSendDataMessage('chat', JSON.stringify(data));
     },
     [av, setMessage]
   );

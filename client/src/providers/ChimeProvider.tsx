@@ -1,6 +1,6 @@
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, createContext, useContext } from 'react';
 
-import ChimeSdkWrapper from "../SDK/Chime";
+import ChimeSdkWrapper from '../SDK/Chime';
 
 const Context = createContext<ChimeSdkWrapper | null>(null);
 
@@ -14,7 +14,7 @@ const useChime = (): ChimeSdkWrapper => {
   const chime = useContext(Context);
 
   if (!chime) {
-    throw new Error("useChime must be used within a ChimeProvider");
+    throw new Error('useChime must be used within a ChimeProvider');
   }
 
   return chime;

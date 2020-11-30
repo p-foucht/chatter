@@ -15,7 +15,9 @@ const DevicesProvider: React.FC = ({ children }) => {
   );
 };
 
-const useSelectDevice = (deviceType) => {
+type DeviceType = 'audio-input' | 'audio-output' | 'video-input';
+
+const useSelectDevice = (deviceType: DeviceType) => {
   const chime = useChime();
 
   if (deviceType === 'audio-input') {
